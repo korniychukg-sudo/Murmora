@@ -1,0 +1,373 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		SG0000000000000000000101 /* SoundGroveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000001 /* SoundGroveApp.swift */; };
+		SG0000000000000000000102 /* GroveWebPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000002 /* GroveWebPanel.swift */; };
+		SG0000000000000000000103 /* GroveLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000003 /* GroveLaunchScreen.swift */; };
+		SG0000000000000000000104 /* GroveTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000004 /* GroveTheme.swift */; };
+		SG0000000000000000000105 /* GroveModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000005 /* GroveModels.swift */; };
+		SG0000000000000000000106 /* GroveIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000006 /* GroveIcons.swift */; };
+		SG0000000000000000000107 /* GroveStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000007 /* GroveStore.swift */; };
+		SG0000000000000000000108 /* GroveAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000008 /* GroveAudio.swift */; };
+		SG0000000000000000000109 /* GroveArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000009 /* GroveArt.swift */; };
+		SG0000000000000000000110 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000010 /* Components.swift */; };
+		SG0000000000000000000111 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000011 /* RootView.swift */; };
+		SG0000000000000000000112 /* StudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000012 /* StudioView.swift */; };
+		SG0000000000000000000113 /* ScenesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000013 /* ScenesView.swift */; };
+		SG0000000000000000000114 /* SleepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000014 /* SleepView.swift */; };
+		SG0000000000000000000115 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000015 /* ProfileView.swift */; };
+		SG0000000000000000000116 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000016 /* OnboardingView.swift */; };
+		SG0000000000000000000120 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000020 /* Assets.xcassets */; };
+		SG0000000000000000000121 /* Art in Resources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000021 /* Art */; };
+		SG0000000000000000000122 /* Audio in Resources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000023 /* Audio */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		SG0000000000000000000001 /* SoundGroveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundGroveApp.swift; sourceTree = "<group>"; };
+		SG0000000000000000000002 /* GroveWebPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroveWebPanel.swift; sourceTree = "<group>"; };
+		SG0000000000000000000003 /* GroveLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroveLaunchScreen.swift; sourceTree = "<group>"; };
+		SG0000000000000000000004 /* GroveTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroveTheme.swift; sourceTree = "<group>"; };
+		SG0000000000000000000005 /* GroveModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroveModels.swift; sourceTree = "<group>"; };
+		SG0000000000000000000006 /* GroveIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroveIcons.swift; sourceTree = "<group>"; };
+		SG0000000000000000000007 /* GroveStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroveStore.swift; sourceTree = "<group>"; };
+		SG0000000000000000000008 /* GroveAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroveAudio.swift; sourceTree = "<group>"; };
+		SG0000000000000000000009 /* GroveArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroveArt.swift; sourceTree = "<group>"; };
+		SG0000000000000000000010 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		SG0000000000000000000011 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		SG0000000000000000000012 /* StudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioView.swift; sourceTree = "<group>"; };
+		SG0000000000000000000013 /* ScenesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenesView.swift; sourceTree = "<group>"; };
+		SG0000000000000000000014 /* SleepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepView.swift; sourceTree = "<group>"; };
+		SG0000000000000000000015 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		SG0000000000000000000016 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		SG0000000000000000000020 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		SG0000000000000000000021 /* Art */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Art; sourceTree = "<group>"; };
+		SG0000000000000000000023 /* Audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Audio; sourceTree = "<group>"; };
+		SG0000000000000000000022 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		SG0000000000000000000030 /* Sound Grove.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sound Grove.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		SG0000000000000000000201 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		SG0000000000000000000301 = {
+			isa = PBXGroup;
+			children = (
+				SG0000000000000000000302 /* Sound Grove */,
+				SG0000000000000000000303 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		SG0000000000000000000302 /* Sound Grove */ = {
+			isa = PBXGroup;
+			children = (
+				SG0000000000000000000001 /* SoundGroveApp.swift */,
+				SG0000000000000000000002 /* GroveWebPanel.swift */,
+				SG0000000000000000000003 /* GroveLaunchScreen.swift */,
+				SG0000000000000000000004 /* GroveTheme.swift */,
+				SG0000000000000000000005 /* GroveModels.swift */,
+				SG0000000000000000000006 /* GroveIcons.swift */,
+				SG0000000000000000000007 /* GroveStore.swift */,
+				SG0000000000000000000008 /* GroveAudio.swift */,
+				SG0000000000000000000009 /* GroveArt.swift */,
+				SG0000000000000000000010 /* Components.swift */,
+				SG0000000000000000000011 /* RootView.swift */,
+				SG0000000000000000000012 /* StudioView.swift */,
+				SG0000000000000000000013 /* ScenesView.swift */,
+				SG0000000000000000000014 /* SleepView.swift */,
+				SG0000000000000000000015 /* ProfileView.swift */,
+				SG0000000000000000000016 /* OnboardingView.swift */,
+				SG0000000000000000000020 /* Assets.xcassets */,
+				SG0000000000000000000021 /* Art */,
+				SG0000000000000000000023 /* Audio */,
+				SG0000000000000000000022 /* Info.plist */,
+			);
+			path = "Sound Grove";
+			sourceTree = "<group>";
+		};
+		SG0000000000000000000303 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				SG0000000000000000000030 /* Sound Grove.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		SG0000000000000000000401 /* Sound Grove */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = SG0000000000000000000501 /* Build configuration list for PBXNativeTarget "Sound Grove" */;
+			buildPhases = (
+				SG0000000000000000000601 /* Sources */,
+				SG0000000000000000000201 /* Frameworks */,
+				SG0000000000000000000602 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Sound Grove";
+			productName = "Sound Grove";
+			productReference = SG0000000000000000000030 /* Sound Grove.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		SG0000000000000000000701 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					SG0000000000000000000401 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = SG0000000000000000000502 /* Build configuration list for PBXProject "Sound Grove" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = SG0000000000000000000301;
+			productRefGroup = SG0000000000000000000303 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				SG0000000000000000000401 /* Sound Grove */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		SG0000000000000000000602 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				SG0000000000000000000120 /* Assets.xcassets in Resources */,
+				SG0000000000000000000121 /* Art in Resources */,
+				SG0000000000000000000122 /* Audio in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		SG0000000000000000000601 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				SG0000000000000000000101 /* SoundGroveApp.swift in Sources */,
+				SG0000000000000000000102 /* GroveWebPanel.swift in Sources */,
+				SG0000000000000000000103 /* GroveLaunchScreen.swift in Sources */,
+				SG0000000000000000000104 /* GroveTheme.swift in Sources */,
+				SG0000000000000000000105 /* GroveModels.swift in Sources */,
+				SG0000000000000000000106 /* GroveIcons.swift in Sources */,
+				SG0000000000000000000107 /* GroveStore.swift in Sources */,
+				SG0000000000000000000108 /* GroveAudio.swift in Sources */,
+				SG0000000000000000000109 /* GroveArt.swift in Sources */,
+				SG0000000000000000000110 /* Components.swift in Sources */,
+				SG0000000000000000000111 /* RootView.swift in Sources */,
+				SG0000000000000000000112 /* StudioView.swift in Sources */,
+				SG0000000000000000000113 /* ScenesView.swift in Sources */,
+				SG0000000000000000000114 /* SleepView.swift in Sources */,
+				SG0000000000000000000115 /* ProfileView.swift in Sources */,
+				SG0000000000000000000116 /* OnboardingView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		SG0000000000000000000801 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		SG0000000000000000000802 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		SG0000000000000000000803 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Sound Grove/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.soundgrove.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		SG0000000000000000000804 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Sound Grove/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.soundgrove.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		SG0000000000000000000501 /* Build configuration list for PBXNativeTarget "Sound Grove" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				SG0000000000000000000803 /* Debug */,
+				SG0000000000000000000804 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		SG0000000000000000000502 /* Build configuration list for PBXProject "Sound Grove" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				SG0000000000000000000801 /* Debug */,
+				SG0000000000000000000802 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = SG0000000000000000000701 /* Project object */;
+}
