@@ -328,6 +328,128 @@ func concentric(_ c: CGContext, cx: CGFloat, cy: CGFloat, s: CGFloat, color: CGC
 }
 
 // draw one token: name -> motif
+// ---- extra motifs (v2) ----------------------------------------------------
+func tentShape(_ c: CGContext, cx: CGFloat, cy: CGFloat, s: CGFloat, body: CGColor, dark: CGColor) {
+    let p = CGMutablePath()
+    p.move(to: CGPoint(x: cx, y: cy + s*1.1))
+    p.addLine(to: CGPoint(x: cx - s*1.2, y: cy - s*0.7))
+    p.addLine(to: CGPoint(x: cx + s*1.2, y: cy - s*0.7))
+    p.closeSubpath()
+    c.setFillColor(body); c.addPath(p); c.fillPath()
+    // door
+    let d = CGMutablePath()
+    d.move(to: CGPoint(x: cx, y: cy + s*1.1))
+    d.addLine(to: CGPoint(x: cx - s*0.32, y: cy - s*0.55))
+    d.addLine(to: CGPoint(x: cx + s*0.32, y: cy - s*0.55))
+    d.closeSubpath()
+    c.setFillColor(dark); c.addPath(d); c.fillPath()
+    // ridge pole
+    c.setStrokeColor(dark); c.setLineWidth(s*0.08); c.setLineCap(.round)
+    c.move(to: CGPoint(x: cx, y: cy + s*1.15)); c.addLine(to: CGPoint(x: cx, y: cy - s*0.85)); c.strokePath()
+}
+func catFace(_ c: CGContext, cx: CGFloat, cy: CGFloat, s: CGFloat, body: CGColor, dark: CGColor) {
+    // ears
+    let e = CGMutablePath()
+    e.move(to: CGPoint(x: cx - s*0.7, y: cy + s*0.45)); e.addLine(to: CGPoint(x: cx - s*0.95, y: cy + s*1.05)); e.addLine(to: CGPoint(x: cx - s*0.25, y: cy + s*0.7)); e.closeSubpath()
+    e.move(to: CGPoint(x: cx + s*0.7, y: cy + s*0.45)); e.addLine(to: CGPoint(x: cx + s*0.95, y: cy + s*1.05)); e.addLine(to: CGPoint(x: cx + s*0.25, y: cy + s*0.7)); e.closeSubpath()
+    c.setFillColor(body); c.addPath(e); c.fillPath()
+    circle(c, cx, cy, s*0.85, body)
+    // closed content eyes (arcs)
+    c.setStrokeColor(dark); c.setLineWidth(s*0.09); c.setLineCap(.round)
+    c.addArc(center: CGPoint(x: cx - s*0.34, y: cy + s*0.12), radius: s*0.2, startAngle: .pi, endAngle: 2 * .pi, clockwise: false); c.strokePath()
+    c.addArc(center: CGPoint(x: cx + s*0.34, y: cy + s*0.12), radius: s*0.2, startAngle: .pi, endAngle: 2 * .pi, clockwise: false); c.strokePath()
+    // nose + mouth
+    let n = CGMutablePath()
+    n.move(to: CGPoint(x: cx - s*0.1, y: cy - s*0.1)); n.addLine(to: CGPoint(x: cx + s*0.1, y: cy - s*0.1)); n.addLine(to: CGPoint(x: cx, y: cy - s*0.24)); n.closeSubpath()
+    c.setFillColor(col(0.95,0.55,0.6)); c.addPath(n); c.fillPath()
+    // whiskers
+    for dy in [-0.14, -0.02] {
+        c.move(to: CGPoint(x: cx - s*0.4, y: cy + s*CGFloat(dy))); c.addLine(to: CGPoint(x: cx - s*1.15, y: cy + s*CGFloat(dy) + s*0.12)); c.strokePath()
+        c.move(to: CGPoint(x: cx + s*0.4, y: cy + s*CGFloat(dy))); c.addLine(to: CGPoint(x: cx + s*1.15, y: cy + s*CGFloat(dy) + s*0.12)); c.strokePath()
+    }
+}
+func clockFace(_ c: CGContext, cx: CGFloat, cy: CGFloat, s: CGFloat, face: CGColor, dark: CGColor, accent: CGColor) {
+    circle(c, cx, cy, s*0.95, face)
+    strokeCircle(c, cx, cy, s*0.95, dark, s*0.08)
+    c.setStrokeColor(dark); c.setLineWidth(s*0.06); c.setLineCap(.round)
+    for i in 0..<12 {
+        let a = CGFloat(i) * (.pi/6)
+        c.move(to: CGPoint(x: cx + cos(a)*s*0.78, y: cy + sin(a)*s*0.78))
+        c.addLine(to: CGPoint(x: cx + cos(a)*s*0.66, y: cy + sin(a)*s*0.66)); c.strokePath()
+    }
+    // hands
+    c.setLineWidth(s*0.1)
+    c.move(to: CGPoint(x: cx, y: cy)); c.addLine(to: CGPoint(x: cx, y: cy + s*0.5)); c.strokePath()
+    c.setLineWidth(s*0.08); c.setStrokeColor(accent)
+    c.move(to: CGPoint(x: cx, y: cy)); c.addLine(to: CGPoint(x: cx + s*0.42, y: cy + s*0.18)); c.strokePath()
+    circle(c, cx, cy, s*0.08, dark)
+}
+func waterDrip(_ c: CGContext, cx: CGFloat, cy: CGFloat, s: CGFloat, color: CGColor, ripple: CGColor) {
+    for i in 0..<3 { strokeCircle(c, cx, cy - s*0.7, s*(0.35 + CGFloat(i)*0.28), ripple, s*0.05) }
+    let p = CGMutablePath()
+    p.move(to: CGPoint(x: cx, y: cy + s*0.9))
+    p.addCurve(to: CGPoint(x: cx - s*0.4, y: cy + s*0.1), control1: CGPoint(x: cx - s*0.28, y: cy + s*0.6), control2: CGPoint(x: cx - s*0.4, y: cy + s*0.35))
+    p.addArc(center: CGPoint(x: cx, y: cy + s*0.1), radius: s*0.4, startAngle: .pi, endAngle: 0, clockwise: true)
+    p.addCurve(to: CGPoint(x: cx, y: cy + s*0.9), control1: CGPoint(x: cx + s*0.4, y: cy + s*0.35), control2: CGPoint(x: cx + s*0.28, y: cy + s*0.6))
+    c.setFillColor(color); c.addPath(p); c.fillPath()
+    circle(c, cx - s*0.12, cy + s*0.35, s*0.12, col(1,1,1,0.6))
+}
+func boatShape(_ c: CGContext, cx: CGFloat, cy: CGFloat, s: CGFloat, body: CGColor, dark: CGColor, water: CGColor) {
+    waves(c, cx: cx, cy: cy - s*0.55, s: s*0.9, color: water, rows: 2)
+    let p = CGMutablePath()
+    p.move(to: CGPoint(x: cx - s, y: cy + s*0.05))
+    p.addQuadCurve(to: CGPoint(x: cx + s, y: cy + s*0.05), control: CGPoint(x: cx, y: cy - s*0.6))
+    p.closeSubpath()
+    c.setFillColor(body); c.addPath(p); c.fillPath()
+    c.setFillColor(dark); c.fill(CGRect(x: cx - s*1.05, y: cy + s*0.0, width: s*2.1, height: s*0.12))
+    // oar
+    c.setStrokeColor(dark); c.setLineWidth(s*0.1); c.setLineCap(.round)
+    c.move(to: CGPoint(x: cx + s*0.2, y: cy + s*0.1)); c.addLine(to: CGPoint(x: cx + s*1.05, y: cy + s*0.7)); c.strokePath()
+}
+func cicadaBug(_ c: CGContext, cx: CGFloat, cy: CGFloat, s: CGFloat, body: CGColor, wing: CGColor) {
+    // wings
+    let wl = CGMutablePath(); wl.addEllipse(in: CGRect(x: cx - s*0.95, y: cy - s*0.3, width: s*1.0, height: s*0.55))
+    let wr = CGMutablePath(); wr.addEllipse(in: CGRect(x: cx - s*0.05, y: cy - s*0.3, width: s*1.0, height: s*0.55))
+    c.setFillColor(wing); c.addPath(wl); c.fillPath(); c.addPath(wr); c.fillPath()
+    // body
+    let b = CGMutablePath(); b.addEllipse(in: CGRect(x: cx - s*0.22, y: cy - s*0.7, width: s*0.44, height: s*1.3))
+    c.setFillColor(body); c.addPath(b); c.fillPath()
+    circle(c, cx, cy + s*0.55, s*0.28, body) // head
+    circle(c, cx - s*0.12, cy + s*0.62, s*0.07, col(0.1,0.12,0.16))
+    circle(c, cx + s*0.12, cy + s*0.62, s*0.07, col(0.1,0.12,0.16))
+}
+func wolfHowl(_ c: CGContext, cx: CGFloat, cy: CGFloat, s: CGFloat, body: CGColor, moon: CGColor) {
+    circle(c, cx + s*0.55, cy + s*0.7, s*0.4, moon) // moon
+    // wolf head raised, howling (silhouette)
+    let p = CGMutablePath()
+    p.move(to: CGPoint(x: cx - s*0.9, y: cy - s*0.9))
+    p.addLine(to: CGPoint(x: cx - s*0.5, y: cy - s*0.2))
+    p.addLine(to: CGPoint(x: cx - s*0.6, y: cy + s*0.5))   // ear
+    p.addLine(to: CGPoint(x: cx - s*0.35, y: cy + s*0.2))
+    p.addLine(to: CGPoint(x: cx - s*0.15, y: cy + s*0.7))  // ear2
+    p.addLine(to: CGPoint(x: cx + s*0.05, y: cy + s*0.15))
+    p.addCurve(to: CGPoint(x: cx + s*0.5, y: cy + s*0.55), control1: CGPoint(x: cx + s*0.25, y: cy + s*0.35), control2: CGPoint(x: cx + s*0.4, y: cy + s*0.5)) // snout up
+    p.addLine(to: CGPoint(x: cx + s*0.35, y: cy + s*0.2))
+    p.addLine(to: CGPoint(x: cx + s*0.1, y: cy - s*0.9))
+    p.closeSubpath()
+    c.setFillColor(body); c.addPath(p); c.fillPath()
+}
+func omLotus(_ c: CGContext, cx: CGFloat, cy: CGFloat, s: CGFloat, petal: CGColor, glow: CGColor) {
+    for i in 0..<3 { strokeCircle(c, cx, cy, s*(0.4 + CGFloat(i)*0.3), col(glow.components![0],glow.components![1],glow.components![2], 0.4 - Double(i)*0.1), s*0.05) }
+    for k in -2...2 {
+        let ang = CGFloat(k) * 0.5
+        c.saveGState(); c.translateBy(x: cx, y: cy - s*0.1); c.rotate(by: ang)
+        let p = CGMutablePath()
+        p.move(to: CGPoint(x: 0, y: 0))
+        p.addQuadCurve(to: CGPoint(x: 0, y: s*1.0), control: CGPoint(x: s*0.35, y: s*0.5))
+        p.addQuadCurve(to: CGPoint(x: 0, y: 0), control: CGPoint(x: -s*0.35, y: s*0.5))
+        c.setFillColor(k == 0 ? petal : col(petal.components![0],petal.components![1],petal.components![2], 0.8))
+        c.addPath(p); c.fillPath()
+        c.restoreGState()
+    }
+    circle(c, cx, cy - s*0.1, s*0.16, glow)
+}
+
 func drawMotif(_ c: CGContext, _ key: String, cx: CGFloat, cy: CGFloat, s: CGFloat, p: Pal) {
     let white = col(0.97,0.98,1.0)
     let soft = col(0.90,0.94,1.0,0.9)
@@ -382,31 +504,75 @@ func drawMotif(_ c: CGContext, _ key: String, cx: CGFloat, cy: CGFloat, s: CGFlo
     case "brownnoise":
         radialFill(c, rect: CGRect(x: cx - s*1.3, y: cy - s*1.3, width: s*2.6, height: s*2.6), inner: col(0.85,0.6,0.4,0.9), outer: col(0.85,0.6,0.4,0.0))
         radialDots(c, cx: cx, cy: cy, s: s, color: white, seed: 66)
+    case "rain_tent":
+        tentShape(c, cx: cx, cy: cy - s*0.15, s: s*0.72, body: white, dark: p.a2)
+        drawDrops(c, cx: cx, cy: cy + s*0.7, s: s*0.6, color: soft, n: 6, spread: s*1.0, seed: 77)
+    case "blizzard":
+        swirl(c, cx: cx, cy: cy + s*0.1, s: s*0.9, color: white)
+        // snowflakes
+        var r1 = RNG(88)
+        for _ in 0..<9 { circle(c, cx + CGFloat(r1.r(-Double(s), Double(s))), cy + CGFloat(r1.r(-Double(s)*0.9, Double(s)*0.9)), s*CGFloat(r1.r(0.05,0.11)), col(1,1,1,0.9)) }
+    case "cat":
+        catFace(c, cx: cx, cy: cy - s*0.05, s: s*0.72, body: white, dark: col(0.28,0.3,0.4))
+    case "clock":
+        clockFace(c, cx: cx, cy: cy, s: s*0.85, face: white, dark: col(0.28,0.24,0.3), accent: col(0.95,0.5,0.4))
+    case "drips":
+        waterDrip(c, cx: cx, cy: cy - s*0.05, s: s*0.8, color: white, ripple: soft)
+    case "rowboat":
+        boatShape(c, cx: cx, cy: cy, s: s*0.82, body: white, dark: p.a2, water: soft)
+    case "cicadas":
+        cicadaBug(c, cx: cx, cy: cy - s*0.1, s: s*0.85, body: col(0.9,0.94,0.85), wing: col(1,1,1,0.55))
+    case "wolves":
+        wolfHowl(c, cx: cx, cy: cy - s*0.1, s: s*0.9, body: white, moon: col(0.98,0.95,0.75))
+    case "pinknoise":
+        radialFill(c, rect: CGRect(x: cx - s*1.3, y: cy - s*1.3, width: s*2.6, height: s*2.6), inner: col(0.98,0.7,0.78,0.85), outer: col(0.98,0.7,0.78,0.0))
+        radialDots(c, cx: cx, cy: cy, s: s, color: white, seed: 99)
+    case "omdrone":
+        omLotus(c, cx: cx, cy: cy - s*0.05, s: s*0.7, petal: white, glow: col(0.99,0.82,0.5))
     default:
         circle(c, cx, cy, s*0.6, white)
     }
 }
 
-// ---- render a token -------------------------------------------------------
+// ---- render a token (richer, layered depth) -------------------------------
 func token(_ key: String, cat: String, path: String) {
-    let W = 512
+    let W = 768
     let c = ctx(W, W, opaque: false)
     let p = pal(cat)
     let cx = CGFloat(W)/2, cy = CGFloat(W)/2
-    // disc
+    let R = CGFloat(W)/2 - 40
+    // drop shadow (soft dark disc offset down)
+    radialFill(c, rect: CGRect(x: cx - R*1.25, y: cy - R*1.25 - 26, width: R*2.5, height: R*2.5),
+               inner: col(0,0,0,0.42), outer: col(0,0,0,0.0),
+               center: CGPoint(x: cx, y: cy - 26), rad: R*1.15)
+    // main disc
     c.saveGState()
-    c.addEllipse(in: CGRect(x: 24, y: 24, width: W-48, height: W-48)); c.clip()
-    radialFill(c, rect: CGRect(x:0,y:0,width:W,height:W), inner: p.a, outer: p.a2,
-               center: CGPoint(x: cx, y: cy + 60), rad: CGFloat(W)*0.7)
-    // subtle top sheen
-    radialFill(c, rect: CGRect(x:0,y:0,width:W,height:W), inner: col(1,1,1,0.22), outer: col(1,1,1,0.0),
-               center: CGPoint(x: cx, y: CGFloat(W)-120), rad: 220)
+    c.addEllipse(in: CGRect(x: cx - R, y: cy - R, width: R*2, height: R*2)); c.clip()
+    // base gradient (light top-left → deep bottom)
+    let g = CGGradient(colorsSpace: rgb, colors: [
+        col(min(1,p.a.components![0]*1.12), min(1,p.a.components![1]*1.12), min(1,p.a.components![2]*1.12)),
+        p.a, p.a2] as CFArray, locations: [0, 0.5, 1])!
+    c.drawLinearGradient(g, start: CGPoint(x: cx - R*0.5, y: cy + R), end: CGPoint(x: cx + R*0.4, y: cy - R), options: [])
+    // atmospheric bloom lower-centre
+    radialFill(c, rect: CGRect(x:0,y:0,width:W,height:W), inner: col(1,1,1,0.16), outer: col(1,1,1,0.0),
+               center: CGPoint(x: cx, y: cy + R*0.35), rad: R*0.9)
+    // top glass sheen (elliptical highlight)
+    let sheen = CGMutablePath()
+    sheen.addEllipse(in: CGRect(x: cx - R*0.62, y: cy + R*0.18, width: R*1.24, height: R*0.7))
+    c.saveGState(); c.addPath(sheen); c.clip()
+    radialFill(c, rect: CGRect(x:0,y:0,width:W,height:W), inner: col(1,1,1,0.30), outer: col(1,1,1,0.0),
+               center: CGPoint(x: cx, y: cy + R*0.5), rad: R*0.7)
     c.restoreGState()
-    // inner ring
-    strokeCircle(c, cx, cy, CGFloat(W)/2 - 26, col(1,1,1,0.35), 4)
-    strokeCircle(c, cx, cy, CGFloat(W)/2 - 20, col(0,0,0,0.12), 6)
+    // inner shadow ring (depth at bottom edge)
+    c.setStrokeColor(col(0,0,0,0.22)); c.setLineWidth(R*0.16)
+    c.addArc(center: CGPoint(x: cx, y: cy), radius: R*0.9, startAngle: 0.2, endAngle: .pi - 0.2, clockwise: false); c.strokePath()
+    c.restoreGState()
+    // rim light (bright arc top) + hairline
+    c.setStrokeColor(col(1,1,1,0.5)); c.setLineWidth(5)
+    c.addArc(center: CGPoint(x: cx, y: cy), radius: R - 8, startAngle: .pi + 0.3, endAngle: 2 * .pi - 0.3, clockwise: false); c.strokePath()
+    strokeCircle(c, cx, cy, R - 3, col(0,0,0,0.14), 6)
     // motif
-    drawMotif(c, key, cx: cx, cy: cy, s: 118, p: p)
+    drawMotif(c, key, cx: cx, cy: cy, s: R * 0.66, p: p)
     save(c, path)
 }
 
@@ -432,47 +598,72 @@ func banner(_ cat: String, keys: [String], path: String) {
     save(c, path)
 }
 
-// ---- scene preset cover ---------------------------------------------------
+// ---- scene preset cover (layered depth + atmosphere + vignette) -----------
 func cover(_ name: String, cat: String, keys: [String], path: String, night: Bool) {
-    let W = 1000, H = 700
+    let W = 1000, H = 720
     let c = ctx(W, H, opaque: false)
     let p = pal(cat)
     let top = night ? p.deep : p.a2
+    // sky
     linFill(c, rect: CGRect(x:0,y:0,width:W,height:H), top: p.deep, bottom: top)
-    // moon/sun
-    let glow = night ? col(0.95,0.95,0.85) : col(0.99,0.85,0.5)
-    radialFill(c, rect: CGRect(x:0,y:0,width:W,height:H), inner: col(glow.components![0],glow.components![1],glow.components![2],0.5), outer: col(1,1,1,0),
-               center: CGPoint(x: 780, y: 520), rad: 320)
-    circle(c, 780, 520, 70, glow)
-    // stars
+    // horizon atmosphere band (warm/category bloom near where hills meet sky)
+    radialFill(c, rect: CGRect(x:0,y:0,width:W,height:H),
+               inner: col(min(1,p.a.components![0]*1.1), min(1,p.a.components![1]*1.1), min(1,p.a.components![2]*1.1), 0.5),
+               outer: col(1,1,1,0), center: CGPoint(x: 500, y: 300), rad: 620)
+    // moon/sun with layered halo
+    let glow = night ? col(0.96,0.96,0.86) : col(0.99,0.86,0.52)
+    radialFill(c, rect: CGRect(x:0,y:0,width:W,height:H), inner: col(glow.components![0],glow.components![1],glow.components![2],0.55), outer: col(1,1,1,0),
+               center: CGPoint(x: 770, y: 500), rad: 360)
+    circle(c, 770, 500, 78, glow)
+    circle(c, 770, 500, 78, col(1,1,1,0.0))
+    strokeCircle(c, 770, 500, 92, col(glow.components![0],glow.components![1],glow.components![2],0.25), 4)
+    // stars (upper sky only)
     var rng = RNG(UInt64(name.count) * 131 + 17)
-    for _ in 0..<80 { circle(c, CGFloat(rng.r(0,Double(W))), CGFloat(rng.r(Double(H)*0.35,Double(H))), CGFloat(rng.r(1,3)), col(1,1,1,rng.r(0.2,0.7))) }
-    // layered hills
-    for layer in 0..<3 {
-        let base = CGFloat(120 + layer*70)
-        let shade = 0.14 + Double(layer)*0.10
+    for _ in 0..<110 {
+        let y = CGFloat(rng.r(Double(H)*0.35, Double(H)))
+        circle(c, CGFloat(rng.r(0,Double(W))), y, CGFloat(rng.r(1,3)), col(1,1,1,rng.r(0.15,0.75)))
+    }
+    // layered hills (far→near, darker & closer toward the front)
+    for layer in 0..<4 {
+        let base = CGFloat(90 + layer*66)
+        let shade = 0.30 - Double(layer)*0.06
         let path2 = CGMutablePath()
-        path2.move(to: CGPoint(x: 0, y: 0))
-        path2.addLine(to: CGPoint(x: 0, y: base))
+        path2.move(to: CGPoint(x: 0, y: 0)); path2.addLine(to: CGPoint(x: 0, y: base))
         var x: CGFloat = 0
         while x < CGFloat(W) {
             let nx = x + CGFloat(rng.r(120,220))
-            let peak = base + CGFloat(rng.r(20,90))
+            let peak = base + CGFloat(rng.r(20, 90 - Double(layer)*8))
             path2.addQuadCurve(to: CGPoint(x: nx, y: base), control: CGPoint(x: (x+nx)/2, y: peak))
             x = nx
         }
         path2.addLine(to: CGPoint(x: CGFloat(W), y: 0)); path2.closeSubpath()
-        c.setFillColor(col(p.a.components![0]*CGFloat(shade+0.1), p.a.components![1]*CGFloat(shade+0.1), p.a.components![2]*CGFloat(shade+0.1), 1))
+        c.setFillColor(col(p.a.components![0]*CGFloat(shade), p.a.components![1]*CGFloat(shade), p.a.components![2]*CGFloat(shade), 1))
         c.addPath(path2); c.fillPath()
     }
-    // motif discs floating
-    let xs: [CGFloat] = [230, 470, 700]
-    for (i,k) in keys.prefix(3).enumerated() {
-        let cx = xs[i], cy = CGFloat(H) - 260 + CGFloat(i%2)*40
-        circle(c, cx, cy, 78, col(1,1,1,0.12))
-        strokeCircle(c, cx, cy, 78, col(1,1,1,0.3), 3)
-        drawMotif(c, k, cx: cx, cy: cy, s: 44, p: p)
+    // near foreground silhouette (near-black, with a couple of tree/grass tufts)
+    let fg = CGMutablePath()
+    fg.move(to: CGPoint(x: 0, y: 0)); fg.addLine(to: CGPoint(x: 0, y: 70))
+    var fx: CGFloat = 0
+    while fx < CGFloat(W) {
+        let nx = fx + CGFloat(rng.r(90,170))
+        fg.addQuadCurve(to: CGPoint(x: nx, y: 62), control: CGPoint(x: (fx+nx)/2, y: CGFloat(rng.r(70,120))))
+        fx = nx
     }
+    fg.addLine(to: CGPoint(x: CGFloat(W), y: 0)); fg.closeSubpath()
+    c.setFillColor(col(p.deep.components![0]*0.6, p.deep.components![1]*0.6, p.deep.components![2]*0.6, 1))
+    c.addPath(fg); c.fillPath()
+    // motif discs floating (with glow rings)
+    let xs: [CGFloat] = [235, 480, 715]
+    for (i,k) in keys.prefix(3).enumerated() {
+        let cx = xs[i], cy = CGFloat(H) - 250 + CGFloat(i%2)*46
+        radialFill(c, rect: CGRect(x: cx-120, y: cy-120, width: 240, height: 240), inner: col(1,1,1,0.14), outer: col(1,1,1,0), center: CGPoint(x: cx, y: cy), rad: 110)
+        circle(c, cx, cy, 82, col(1,1,1,0.14))
+        strokeCircle(c, cx, cy, 82, col(1,1,1,0.34), 3)
+        drawMotif(c, k, cx: cx, cy: cy, s: 46, p: p)
+    }
+    // vignette
+    let vg = CGGradient(colorsSpace: rgb, colors: [col(0,0,0,0), col(0,0,0,0.4)] as CFArray, locations: [0.55, 1])!
+    c.drawRadialGradient(vg, startCenter: CGPoint(x: 500, y: 360), startRadius: 300, endCenter: CGPoint(x: 500, y: 360), endRadius: 720, options: [.drawsAfterEndLocation])
     save(c, path)
 }
 
@@ -551,11 +742,11 @@ let artDir = CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "."
 let iconPath = CommandLine.arguments.count > 2 ? CommandLine.arguments[2] : "AppIcon-1024.png"
 
 let catOf: [String:String] = [
-    "rain":"sky","heavyrain":"sky","thunder":"sky","wind":"sky",
-    "campfire":"fire","fan":"fire","chimes":"fire","heartbeat":"fire",
-    "ocean":"water","stream":"water","frogs":"water","train":"water",
-    "crickets":"forest","owl":"forest","birds":"forest","leaves":"forest",
-    "bowl":"tones","piano":"tones","whitenoise":"tones","brownnoise":"tones",
+    "rain":"sky","heavyrain":"sky","thunder":"sky","wind":"sky","rain_tent":"sky","blizzard":"sky",
+    "campfire":"fire","fan":"fire","chimes":"fire","heartbeat":"fire","cat":"fire","clock":"fire",
+    "ocean":"water","stream":"water","frogs":"water","train":"water","drips":"water","rowboat":"water",
+    "crickets":"forest","owl":"forest","birds":"forest","leaves":"forest","cicadas":"forest","wolves":"forest",
+    "bowl":"tones","piano":"tones","whitenoise":"tones","brownnoise":"tones","pinknoise":"tones","omdrone":"tones",
 ]
 
 print("Rendering tokens...")
@@ -579,6 +770,12 @@ cover("Night Train", cat: "water", keys: ["train","rain","brownnoise"], path: "\
 cover("Zen Garden", cat: "tones", keys: ["bowl","piano","stream"], path: "\(artDir)/scene_zen.png", night: false)
 cover("Deep Focus", cat: "tones", keys: ["brownnoise","fan","rain"], path: "\(artDir)/scene_focus.png", night: true)
 cover("Sleepy Pond", cat: "forest", keys: ["frogs","crickets","wind"], path: "\(artDir)/scene_pond.png", night: true)
+cover("Snowy Cabin", cat: "sky", keys: ["blizzard","campfire","wind"], path: "\(artDir)/scene_snowycabin.png", night: true)
+cover("Reading Nook", cat: "fire", keys: ["cat","clock","rain"], path: "\(artDir)/scene_reading.png", night: true)
+cover("Dripping Cave", cat: "water", keys: ["drips","brownnoise","wind"], path: "\(artDir)/scene_cave.png", night: true)
+cover("Cicada Afternoon", cat: "forest", keys: ["cicadas","birds","leaves"], path: "\(artDir)/scene_cicadaday.png", night: false)
+cover("Wolf Ridge", cat: "forest", keys: ["wolves","wind","owl"], path: "\(artDir)/scene_wolfridge.png", night: true)
+cover("Temple Calm", cat: "tones", keys: ["omdrone","bowl","drips"], path: "\(artDir)/scene_temple.png", night: false)
 
 print("Rendering onboarding + grain...")
 onboard(0, path: "\(artDir)/onb_1.png")
