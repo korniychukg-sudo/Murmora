@@ -71,6 +71,17 @@ enum SoundCatalog {
         GroveSound(id: "piano",      name: "Soft Piano",     cat: .tones, blurb: "Sparse, gentle piano notes."),
         GroveSound(id: "whitenoise", name: "White Noise",    cat: .tones, blurb: "An even veil that masks the world."),
         GroveSound(id: "brownnoise", name: "Brown Noise",    cat: .tones, blurb: "Deep, warm low-frequency hush."),
+        // v2 additions (6 per category)
+        GroveSound(id: "rain_tent",  name: "Rain on Tent",   cat: .sky,   blurb: "Soft patter close overhead."),
+        GroveSound(id: "blizzard",   name: "Blizzard Wind",  cat: .sky,   blurb: "Snow-laden gusts and a low howl."),
+        GroveSound(id: "cat",        name: "Purring Cat",    cat: .fire,  blurb: "A warm, steady purr."),
+        GroveSound(id: "clock",      name: "Ticking Clock",  cat: .fire,  blurb: "The calm rhythm of a room clock."),
+        GroveSound(id: "drips",      name: "Cave Drips",     cat: .water, blurb: "Echoing drops in a still cavern."),
+        GroveSound(id: "rowboat",    name: "Rowboat Creaks", cat: .water, blurb: "Wooden creaks and lapping water."),
+        GroveSound(id: "cicadas",    name: "Summer Cicadas", cat: .forest,blurb: "A shimmering afternoon chorus."),
+        GroveSound(id: "wolves",     name: "Distant Wolves", cat: .forest,blurb: "Far-off howls under the moon."),
+        GroveSound(id: "pinknoise",  name: "Pink Noise",     cat: .tones, blurb: "A soft, balanced wash of sound."),
+        GroveSound(id: "omdrone",    name: "Om Drone",       cat: .tones, blurb: "A sustained, grounding chant tone."),
     ]
 
     static func by(_ id: String) -> GroveSound? { all.first { $0.id == id } }
@@ -110,6 +121,18 @@ enum SceneCatalog {
                     mix: ["brownnoise": 0.55, "fan": 0.4, "rain": 0.3]),
         ScenePreset(id: "pond",   name: "Sleepy Pond",     blurb: "Frogs and crickets on a windless night.",   cover: "scene_pond",   cat: .forest,
                     mix: ["frogs": 0.55, "crickets": 0.5, "wind": 0.28]),
+        ScenePreset(id: "snowycabin", name: "Snowy Cabin", blurb: "A blizzard outside, a fire within.",       cover: "scene_snowycabin", cat: .sky,
+                    mix: ["blizzard": 0.7, "campfire": 0.55, "wind": 0.3]),
+        ScenePreset(id: "reading", name: "Reading Nook",   blurb: "A purring cat, a clock, soft rain.",        cover: "scene_reading", cat: .fire,
+                    mix: ["cat": 0.6, "clock": 0.4, "rain": 0.4]),
+        ScenePreset(id: "cave",   name: "Dripping Cave",   blurb: "Echoing drops in the deep dark.",           cover: "scene_cave",   cat: .water,
+                    mix: ["drips": 0.62, "brownnoise": 0.4, "wind": 0.25]),
+        ScenePreset(id: "cicadaday", name: "Cicada Afternoon", blurb: "A bright, buzzing summer day.",         cover: "scene_cicadaday", cat: .forest,
+                    mix: ["cicadas": 0.6, "birds": 0.45, "leaves": 0.35]),
+        ScenePreset(id: "wolfridge", name: "Wolf Ridge",   blurb: "Howls carried on a cold wind.",             cover: "scene_wolfridge", cat: .forest,
+                    mix: ["wolves": 0.55, "wind": 0.4, "owl": 0.4]),
+        ScenePreset(id: "temple", name: "Temple Calm",     blurb: "A chant, a bowl, and falling water.",       cover: "scene_temple", cat: .tones,
+                    mix: ["omdrone": 0.55, "bowl": 0.45, "drips": 0.35]),
     ]
 }
 

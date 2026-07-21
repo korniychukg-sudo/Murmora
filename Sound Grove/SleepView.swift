@@ -3,6 +3,7 @@ import SwiftUI
 struct SleepView: View {
     @EnvironmentObject var store: GroveStore
     @State private var mode: TimerMode = .sleep
+    @State private var showImmersive = false
     private let sleepOptions = [10, 15, 30, 45, 60, 90]
     private let focusOptions = [15, 25, 45, 60]
 
@@ -10,12 +11,20 @@ struct SleepView: View {
         ZStack {
             AuroraBackground(tint: mode == .sleep ? Grove.primary : Grove.accent(.water),
                              secondary: Grove.accent(.tones), reduceMotion: store.reduceMotion)
+            if store.hasMix {
+                LiveSceneView(active: store.activeSounds, volumes: store.mix,
+                              playing: store.isPlaying, reduceMotion: store.reduceMotion, intensity: 0.5)
+                    .opacity(0.5).ignoresSafeArea()
+            }
 
             if store.timerMode != .none {
                 activeTimer
             } else {
                 setup
             }
+        }
+        .fullScreenCover(isPresented: $showImmersive) {
+            ImmersiveView().environmentObject(store)
         }
     }
 
@@ -116,7 +125,14 @@ struct SleepView: View {
                 }
             }
             Spacer()
-            EqualizerBars(active: store.isPlaying, color: Grove.gold, bars: 4, reduceMotion: store.reduceMotion)
+            Button { Haptic.soft(); showImmersive = true } label: {
+                HStack(spacing: 5) {
+                    GroveIcon(glyph: .sparkle, size: 13, color: Grove.bgDeep)
+                    Text("Immerse").font(.system(size: 12.5, weight: .bold, design: .rounded)).foregroundColor(Grove.bgDeep)
+                }
+                .padding(.horizontal, 12).padding(.vertical, 7)
+                .background(Capsule().fill(Grove.gold))
+            }.buttonStyle(PressableStyle())
         }
         .groveCard(padding: 12)
     }

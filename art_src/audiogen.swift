@@ -1,10 +1,10 @@
 // Sound Grove — procedural ambient audio loop generator.
 // Compile:  swiftc -O audiogen.swift -o audiogen
 // Run:      ./audiogen  <output_dir>
-// Writes seamless-looping 16-bit PCM mono WAV files (44.1 kHz).
+// Writes seamless-looping 16-bit PCM mono WAV files (22.05 kHz — ample for ambient).
 import Foundation
 
-let SR: Double = 44100.0
+let SR: Double = 22050.0
 
 // Deterministic RNG (xorshift) so builds are reproducible.
 struct RNG {

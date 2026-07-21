@@ -23,6 +23,8 @@
 		SG0000000000000000000114 /* SleepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000014 /* SleepView.swift */; };
 		SG0000000000000000000115 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000015 /* ProfileView.swift */; };
 		SG0000000000000000000116 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000016 /* OnboardingView.swift */; };
+		SG0000000000000000000117 /* LiveScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000017 /* LiveScene.swift */; };
+		SG0000000000000000000118 /* ImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000018 /* ImmersiveView.swift */; };
 		SG0000000000000000000120 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000020 /* Assets.xcassets */; };
 		SG0000000000000000000121 /* Art in Resources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000021 /* Art */; };
 		SG0000000000000000000122 /* Audio in Resources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000023 /* Audio */; };
@@ -45,6 +47,8 @@
 		SG0000000000000000000014 /* SleepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepView.swift; sourceTree = "<group>"; };
 		SG0000000000000000000015 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		SG0000000000000000000016 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		SG0000000000000000000017 /* LiveScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveScene.swift; sourceTree = "<group>"; };
+		SG0000000000000000000018 /* ImmersiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveView.swift; sourceTree = "<group>"; };
 		SG0000000000000000000020 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		SG0000000000000000000021 /* Art */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Art; sourceTree = "<group>"; };
 		SG0000000000000000000023 /* Audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Audio; sourceTree = "<group>"; };
@@ -90,6 +94,8 @@
 				SG0000000000000000000014 /* SleepView.swift */,
 				SG0000000000000000000015 /* ProfileView.swift */,
 				SG0000000000000000000016 /* OnboardingView.swift */,
+				SG0000000000000000000017 /* LiveScene.swift */,
+				SG0000000000000000000018 /* ImmersiveView.swift */,
 				SG0000000000000000000020 /* Assets.xcassets */,
 				SG0000000000000000000021 /* Art */,
 				SG0000000000000000000023 /* Audio */,
@@ -193,6 +199,8 @@
 				SG0000000000000000000114 /* SleepView.swift in Sources */,
 				SG0000000000000000000115 /* ProfileView.swift in Sources */,
 				SG0000000000000000000116 /* OnboardingView.swift in Sources */,
+				SG0000000000000000000117 /* LiveScene.swift in Sources */,
+				SG0000000000000000000118 /* ImmersiveView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +302,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -304,7 +312,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.soundgrove.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -323,7 +331,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -333,7 +341,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.soundgrove.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

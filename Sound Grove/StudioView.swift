@@ -5,6 +5,7 @@ struct StudioView: View {
     @State private var showSave = false
     @State private var saveName = ""
     @State private var sparkle = false
+    @State private var showImmersive = false
 
     var body: some View {
         ZStack {
@@ -29,6 +30,9 @@ struct StudioView: View {
             SparkleBurst(trigger: sparkle).allowsHitTesting(false)
         }
         .sheet(isPresented: $showSave) { saveSheet }
+        .fullScreenCover(isPresented: $showImmersive) {
+            ImmersiveView().environmentObject(store)
+        }
     }
 
     // MARK: header
@@ -54,8 +58,10 @@ struct StudioView: View {
 
     private var stage: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
-                .fill(Color.white.opacity(0.05))
+            // Living animated scene behind everything
+            LiveSceneView(active: store.activeSounds, volumes: store.mix,
+                          playing: store.isPlaying, reduceMotion: store.reduceMotion, intensity: 0.7)
+                .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
                 .overlay(RoundedRectangle(cornerRadius: 28).strokeBorder(Grove.stroke, lineWidth: 1))
 
             if store.activeSounds.isEmpty {
@@ -88,6 +94,23 @@ struct StudioView: View {
             }
         }
         .frame(height: 210)
+        .overlay(alignment: .topTrailing) {
+            if store.hasMix {
+                Button {
+                    Haptic.soft(); showImmersive = true
+                } label: {
+                    HStack(spacing: 5) {
+                        GroveIcon(glyph: .sparkle, size: 13, color: .white)
+                        Text("Immerse").font(.system(size: 12.5, weight: .bold, design: .rounded)).foregroundColor(.white)
+                    }
+                    .padding(.horizontal, 12).padding(.vertical, 7)
+                    .background(Capsule().fill(Grove.bgDeep.opacity(0.55))
+                        .overlay(Capsule().strokeBorder(Color.white.opacity(0.25), lineWidth: 1)))
+                }
+                .buttonStyle(PressableStyle())
+                .padding(12)
+            }
+        }
     }
 
     private func stagePosition(_ i: Int, count: Int, in size: CGSize) -> CGPoint {
