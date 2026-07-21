@@ -498,4 +498,172 @@ build("leaves", dur: 20, fadeSec: 1.2, peak: 0.68, seed: 2020) { buf, rng in
     }
 }
 
+// 21. Rain on Tent — softer, closer patter ----------------------------------
+build("rain_tent", dur: 20, fadeSec: 1.0, peak: 0.78, seed: 2121) { buf, rng in
+    let lp = LP(2600), hp = HP(300)
+    for i in 0..<buf.count { var s = hp.f(rng.pm()); s = lp.f(s); buf[i] = s * 0.42 }
+    var i = 0
+    while i < buf.count {
+        if rng.d() < 0.55 { addBell(&buf, at: i, freq: rng.range(900, 2200), dur: 0.02, amp: rng.range(0.08, 0.2)) }
+        i += seconds(rng.range(0.008, 0.03))
+    }
+}
+
+// 22. Blizzard Wind — strong gusts + low howl -------------------------------
+build("blizzard", dur: 22, fadeSec: 1.6, peak: 0.85, seed: 2222) { buf, rng in
+    let bp = LP(900), hp = HP(160)
+    for i in 0..<buf.count {
+        let t = Double(i) / SR
+        let gust = 0.35 + 0.65 * pow(max(0.0, sin(t * 0.4 + sin(t * 0.17))), 1.3)
+        var s = hp.f(rng.pm()); s = bp.f(s)
+        let howl = 0.12 * sin(2 * Double.pi * (120 + 40 * sin(t * 0.3)) * t)
+        buf[i] = s * gust + howl * gust
+    }
+}
+
+// 23. Purring Cat — low buzzy AM in breath cycles ---------------------------
+build("cat", dur: 16, fadeSec: 0.8, peak: 0.8, seed: 2323) { buf, rng in
+    let lp = LP(500)
+    for i in 0..<buf.count {
+        let t = Double(i) / SR
+        let breath = 0.55 + 0.45 * sin(2 * Double.pi * 0.4 * t)   // inhale/exhale
+        let purr = 0.5 + 0.5 * sin(2 * Double.pi * 27 * t)        // purr flutter
+        var s = lp.f(rng.pm())
+        s += 0.4 * sin(2 * Double.pi * 55 * t)
+        buf[i] = softClip(s * 1.2) * purr * breath * 0.7
+    }
+}
+
+// 24. Ticking Clock — tick/tock every second --------------------------------
+build("clock", dur: 12, fadeSec: 0.4, peak: 0.8, seed: 2424) { buf, rng in
+    let lp = LP(180)
+    for i in 0..<buf.count { buf[i] = lp.f(rng.pm()) * 0.03 } // faint room bed
+    var t = 0.15
+    var tick = true
+    while t < 11.9 {
+        let at = seconds(t)
+        let f = tick ? 2600.0 : 2100.0
+        let len = seconds(0.03)
+        for j in 0..<len {
+            let idx = at + j; if idx >= buf.count { break }
+            let tt = Double(j) / SR
+            let env = exp(-tt * 180)
+            buf[idx] += (sin(2 * Double.pi * f * tt) + 0.5 * rng.pm()) * env * 0.7
+        }
+        t += 0.5; tick.toggle()
+    }
+}
+
+// 25. Cave Drips — sparse bright drips + reverby bed ------------------------
+build("drips", dur: 22, fadeSec: 1.0, peak: 0.75, seed: 2525) { buf, rng in
+    let lp = LP(400)
+    for i in 0..<buf.count { buf[i] = lp.f(rng.pm()) * 0.04 } // hollow bed
+    var t = rng.range(0.3, 1.2)
+    while t < 21.0 {
+        let at = seconds(t)
+        let f = rng.range(700, 1500)
+        addBell(&buf, at: at, freq: f, dur: rng.range(0.12, 0.28), amp: rng.range(0.25, 0.5))
+        // faint echo
+        addBell(&buf, at: at + seconds(0.16), freq: f, dur: 0.12, amp: 0.12)
+        t += rng.range(0.4, 1.7)
+    }
+}
+
+// 26. Rowboat Creaks — wooden creak + water lap -----------------------------
+build("rowboat", dur: 20, fadeSec: 1.0, peak: 0.76, seed: 2626) { buf, rng in
+    let lp = LP(1200), hp = HP(500)
+    for i in 0..<buf.count { var s = hp.f(rng.pm()); s = lp.f(s); buf[i] = s * 0.16 } // lap bed
+    var t = rng.range(0.5, 1.5)
+    while t < 19.0 {
+        let len = seconds(rng.range(0.5, 1.1))
+        let at = seconds(t)
+        let base = rng.range(120, 260)
+        let bp = LP(rng.range(700, 1400))
+        for j in 0..<len {
+            let idx = at + j; if idx >= buf.count { break }
+            let tt = Double(j) / Double(len)
+            let env = sin(Double.pi * tt)
+            let creak = bp.f(rng.pm()) * (0.5 + 0.5 * sin(2 * Double.pi * base * (Double(j)/SR)))
+            buf[idx] += creak * env * 0.5
+        }
+        t += rng.range(1.5, 3.5)
+    }
+}
+
+// 27. Summer Cicadas — dense daytime buzz -----------------------------------
+build("cicadas", dur: 18, fadeSec: 0.8, peak: 0.7, seed: 2727) { buf, rng in
+    let bed = LP(2500)
+    for i in 0..<buf.count { buf[i] = bed.f(rng.pm()) * 0.04 }
+    for _ in 0..<6 {
+        let f = rng.range(5000, 7000)
+        let rate = rng.range(45, 70)
+        let phase = rng.range(0, 6.28)
+        let gain = rng.range(0.08, 0.16)
+        for i in 0..<buf.count {
+            let t = Double(i) / SR
+            let am = 0.5 + 0.5 * sin(2 * Double.pi * rate * t + phase)
+            buf[i] += sin(2 * Double.pi * f * t) * am * am * gain
+        }
+    }
+}
+
+// 28. Distant Wolves — night bed + occasional howl --------------------------
+build("wolves", dur: 26, fadeSec: 1.0, peak: 0.72, seed: 2828) { buf, rng in
+    let bed = LP(1600)
+    for i in 0..<buf.count { buf[i] = bed.f(rng.pm()) * 0.05 }
+    // faint crickets
+    for _ in 0..<2 {
+        let f = rng.range(3800, 4400), rate = rng.range(24, 30)
+        for i in 0..<buf.count {
+            let t = Double(i) / SR
+            let tr = max(0.0, sin(2 * Double.pi * rate * t))
+            buf[i] += sin(2 * Double.pi * f * t) * tr * tr * 0.03
+        }
+    }
+    var t = rng.range(2.0, 4.0)
+    while t < 23.0 {
+        let len = seconds(rng.range(1.6, 2.6))
+        let at = seconds(t)
+        let start = rng.range(300, 340)
+        for j in 0..<len {
+            let idx = at + j; if idx >= buf.count { break }
+            let p = Double(j) / Double(len)
+            // glide up then down
+            let f = start * (1.0 + 0.5 * sin(Double.pi * p))
+            let env = sin(Double.pi * p)
+            let vib = 1 + 0.02 * sin(2 * Double.pi * 5 * (Double(j)/SR))
+            buf[idx] += (sin(2 * Double.pi * f * vib * (Double(j)/SR)) + 0.25 * sin(4 * Double.pi * f * (Double(j)/SR))) * env * 0.4
+        }
+        t += rng.range(5.0, 8.0)
+    }
+}
+
+// 29. Pink Noise — cascaded low-passed white --------------------------------
+build("pinknoise", dur: 12, fadeSec: 0.5, peak: 0.78, seed: 2929) { buf, rng in
+    let a = LP(2200), b = LP(700), c = LP(220)
+    for i in 0..<buf.count {
+        let w = rng.pm()
+        let s = a.f(w) * 0.5 + b.f(w) * 0.7 + c.f(w) * 1.0
+        buf[i] = s
+    }
+}
+
+// 30. Om Drone — sustained vocal-ish drone ----------------------------------
+build("omdrone", dur: 20, fadeSec: 2.0, peak: 0.72, seed: 3030) { buf, rng in
+    let f0 = 110.0
+    let partials: [(Double, Double, Double)] = [ (1.0, 1.0, 0.0), (2.0, 0.5, 3.1), (3.0, 0.34, 4.7), (4.0, 0.2, 2.3), (5.0, 0.12, 5.5) ]
+    for i in 0..<buf.count {
+        let t = Double(i) / SR
+        var s = 0.0
+        for (m, aH, beat) in partials {
+            let mod = beat == 0 ? 1.0 : (1.0 + 0.04 * sin(2 * Double.pi * beat * 0.08 * t))
+            s += aH * sin(2 * Double.pi * f0 * m * t) * mod
+        }
+        let vib = 1 + 0.006 * sin(2 * Double.pi * 5.5 * t)
+        let env = 0.85 + 0.15 * sin(2 * Double.pi * 0.06 * t)
+        buf[i] = softClip(s * 0.22 * vib) * env
+    }
+    _ = rng
+}
+
 print("Done.")
