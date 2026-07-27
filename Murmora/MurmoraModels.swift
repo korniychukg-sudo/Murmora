@@ -181,7 +181,7 @@ enum BadgeCatalog {
         Badge(id: "layer3",    title: "Layered",        detail: "Blend 3 sounds at once",           glyph: .layers,   test: { $0.maxConcurrent >= 3 }),
         Badge(id: "layer5",    title: "Mixologist",     detail: "Blend 5 sounds at once",           glyph: .layers,   test: { $0.maxConcurrent >= 5 }),
         Badge(id: "explore10", title: "Sound Explorer", detail: "Try 10 different sounds",          glyph: .compass,  test: { $0.usedSounds.count >= 10 }),
-        Badge(id: "all20",     title: "Full Palette",   detail: "Try all 20 sounds",               glyph: .grid,     test: { $0.usedSounds.count >= 20 }),
+        Badge(id: "all20",     title: "Full Palette",   detail: "Try 20 different sounds",         glyph: .grid,     test: { $0.usedSounds.count >= 20 }),
         Badge(id: "save3",     title: "Curator",        detail: "Save 3 of your own scenes",        glyph: .bookmark, test: { $0.savedCount >= 3 }),
         Badge(id: "save10",    title: "Collector",      detail: "Save 10 of your own scenes",       glyph: .bookmark, test: { $0.savedCount >= 10 }),
         Badge(id: "min60",     title: "Unwound",        detail: "Listen for 60 minutes",            glyph: .moon,     test: { $0.minutes >= 60 }),

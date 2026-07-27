@@ -68,6 +68,7 @@ struct ScenesView: View {
 
 struct FeaturedScene: View {
     @EnvironmentObject var store: MurmoraStore
+    @Environment(\.horizontalSizeClass) private var hSize
     let preset: ScenePreset
     var body: some View {
         Button {
@@ -94,7 +95,7 @@ struct FeaturedScene: View {
                 }
                 .padding(18)
             }
-            .frame(height: 240)
+            .frame(height: hSize == .regular ? 380 : 240)
             .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
             .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(Murmora.stroke, lineWidth: 1))
         }

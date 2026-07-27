@@ -66,6 +66,7 @@ struct OnboardingView: View {
                     .font(.system(size: 14, weight: .semibold, design: .rounded))
                     .foregroundColor(Murmora.subtle).padding(.top, 14).padding(.bottom, 30)
             }
+            .frame(maxWidth: Murmora.contentMaxWidth)
         }
     }
 }

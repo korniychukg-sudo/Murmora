@@ -16,7 +16,8 @@ struct RootView: View {
                     default: ProfileView()
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: Murmora.contentMaxWidth, maxHeight: .infinity)
+                .frame(maxWidth: .infinity)
 
                 tabBar
             }

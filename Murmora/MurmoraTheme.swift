@@ -18,6 +18,9 @@ enum Murmora {
     static let gold     = Color(red: 0.98, green: 0.80, blue: 0.45)
     static let goldDeep = Color(red: 0.95, green: 0.62, blue: 0.30)
 
+    // Widest the reading column grows to; keeps iPad layouts from stretching edge to edge
+    static let contentMaxWidth: CGFloat = 640
+
     // Category accents (match generated art)
     static func accent(_ c: SoundCat) -> Color {
         switch c {
