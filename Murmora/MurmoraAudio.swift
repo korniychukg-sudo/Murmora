@@ -3,7 +3,7 @@ import AVFoundation
 
 /// Manages a pool of looping AVAudioPlayers, one per active sound, with a
 /// global master volume, per-sound volume, and a fade-driven sleep timer.
-final class GroveAudio {
+final class MurmoraAudio {
     private var players: [String: AVAudioPlayer] = [:]
     private(set) var isRunning = false
     private var master: Float = 1.0

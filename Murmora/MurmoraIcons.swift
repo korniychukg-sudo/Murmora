@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Custom vector glyphs (no SF Symbols, no emoji). Stroked or filled paths.
-enum GroveGlyph {
+enum MurmoraGlyph {
     case studio, scenes, sleep, profile
     case play, pause, plus, close, trash, bookmark, bookmarkFill
     case timer, gear, chevron, chevronDown, reset
@@ -9,10 +9,10 @@ enum GroveGlyph {
     case sliders, waveform, heart, leaf, check, share, info
 }
 
-struct GroveIcon: View {
-    let glyph: GroveGlyph
+struct MurmoraIcon: View {
+    let glyph: MurmoraGlyph
     var size: CGFloat = 24
-    var color: Color = Grove.ink
+    var color: Color = Murmora.ink
     var weight: CGFloat = 2.2
 
     var body: some View {
@@ -26,7 +26,7 @@ struct GroveIcon: View {
         .frame(width: size, height: size)
     }
 
-    static func build(_ glyph: GroveGlyph, in s: CGSize) -> (Path, Path, Bool) {
+    static func build(_ glyph: MurmoraGlyph, in s: CGSize) -> (Path, Path, Bool) {
         let w = s.width, h = s.height
         let lw = 2.2 * (w / 24)
         func P(_ x: CGFloat, _ y: CGFloat) -> CGPoint { CGPoint(x: x*w, y: y*h) }

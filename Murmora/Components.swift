@@ -3,15 +3,15 @@ import SwiftUI
 // MARK: - Animated dusk background (aurora blobs + drifting stars)
 
 struct AuroraBackground: View {
-    var tint: Color = Grove.primary
-    var secondary: Color = Grove.accent(.water)
+    var tint: Color = Murmora.primary
+    var secondary: Color = Murmora.accent(.water)
     var animated: Bool = true
     var reduceMotion: Bool = false
     @State private var t: CGFloat = 0
 
     var body: some View {
         ZStack {
-            Grove.bgGradient
+            Murmora.bgGradient
             GeometryReader { geo in
                 let w = geo.size.width, h = geo.size.height
                 ZStack {
@@ -19,7 +19,7 @@ struct AuroraBackground: View {
                         .offset(x: -w*0.25 + sin(t) * w*0.10, y: -h*0.18 + cos(t*0.8) * h*0.06)
                     blob(secondary.opacity(0.26), size: w*0.85)
                         .offset(x: w*0.28 + cos(t*0.9) * w*0.10, y: h*0.10 + sin(t*1.1) * h*0.06)
-                    blob(Grove.gold.opacity(0.14), size: w*0.6)
+                    blob(Murmora.gold.opacity(0.14), size: w*0.6)
                         .offset(x: w*0.05 + sin(t*1.3) * w*0.08, y: h*0.34 + cos(t) * h*0.05)
                 }
                 .blur(radius: 42)
@@ -98,7 +98,7 @@ struct EqualizerBars: View {
 // MARK: - Floating living token (used on the Studio stage)
 
 struct FloatingToken: View {
-    let sound: GroveSound
+    let sound: MurmoraSound
     let volume: Double
     let playing: Bool
     var reduceMotion: Bool = false
@@ -109,12 +109,12 @@ struct FloatingToken: View {
         let scale = 0.8 + 0.35 * volume
         ZStack {
             Circle()
-                .fill(Grove.accent(sound.cat).opacity(0.28 + 0.4 * volume))
+                .fill(Murmora.accent(sound.cat).opacity(0.28 + 0.4 * volume))
                 .frame(width: 92, height: 92)
                 .blur(radius: 10)
                 .scaleEffect(playing ? (bob ? 1.12 : 0.96) : 1.0)
             SoundToken(sound: sound, size: 62)
-                .glow(Grove.accent(sound.cat), radius: 12, opacity: 0.6 * volume + 0.2)
+                .glow(Murmora.accent(sound.cat), radius: 12, opacity: 0.6 * volume + 0.2)
         }
         .scaleEffect(scale)
         .offset(y: bob && !reduceMotion ? -8 : 6)
@@ -175,14 +175,14 @@ struct ProgressRing: View {
 
 // MARK: - Pill / chip
 
-struct GrovePill: View {
+struct MurmoraPill: View {
     let text: String
-    var color: Color = Grove.primary
+    var color: Color = Murmora.primary
     var filled: Bool = false
     var body: some View {
         Text(text)
             .font(.system(size: 12, weight: .bold, design: .rounded))
-            .foregroundColor(filled ? Grove.bgDeep : color)
+            .foregroundColor(filled ? Murmora.bgDeep : color)
             .padding(.horizontal, 12).padding(.vertical, 6)
             .background(
                 Capsule().fill(filled ? color : color.opacity(0.16))
@@ -197,9 +197,9 @@ struct SectionHeader: View {
     var subtitle: String? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text(title).font(.system(size: 20, weight: .heavy, design: .rounded)).foregroundColor(Grove.ink)
+            Text(title).font(.system(size: 20, weight: .heavy, design: .rounded)).foregroundColor(Murmora.ink)
             if let s = subtitle {
-                Text(s).font(.system(size: 13, weight: .medium, design: .rounded)).foregroundColor(Grove.subtle)
+                Text(s).font(.system(size: 13, weight: .medium, design: .rounded)).foregroundColor(Murmora.subtle)
             }
         }
     }
@@ -209,7 +209,7 @@ struct SectionHeader: View {
 
 struct SparkleBurst: View {
     var trigger: Bool
-    var color: Color = Grove.gold
+    var color: Color = Murmora.gold
     @State private var animate = false
     private let seeds = (0..<18).map { _ in (Double.random(in: -1...1), Double.random(in: -1...1)) }
 
@@ -218,7 +218,7 @@ struct SparkleBurst: View {
             ForEach(0..<seeds.count, id: \.self) { i in
                 let (dx, dy) = seeds[i]
                 Circle()
-                    .fill(i % 2 == 0 ? color : Grove.primary)
+                    .fill(i % 2 == 0 ? color : Murmora.primary)
                     .frame(width: 8, height: 8)
                     .scaleEffect(animate ? 0.2 : 1)
                     .offset(x: animate ? CGFloat(dx) * 150 : 0,
@@ -237,9 +237,9 @@ struct SparkleBurst: View {
 // MARK: - Round icon button
 
 struct RoundIconButton: View {
-    let glyph: GroveGlyph
-    var color: Color = Grove.ink
-    var bg: Color = Grove.card
+    let glyph: MurmoraGlyph
+    var color: Color = Murmora.ink
+    var bg: Color = Murmora.card
     var size: CGFloat = 44
     var iconSize: CGFloat = 20
     let action: () -> Void
@@ -247,8 +247,8 @@ struct RoundIconButton: View {
         Button(action: action) {
             ZStack {
                 Circle().fill(bg)
-                    .overlay(Circle().strokeBorder(Grove.stroke, lineWidth: 1))
-                GroveIcon(glyph: glyph, size: iconSize, color: color)
+                    .overlay(Circle().strokeBorder(Murmora.stroke, lineWidth: 1))
+                MurmoraIcon(glyph: glyph, size: iconSize, color: color)
             }
             .frame(width: size, height: size)
         }

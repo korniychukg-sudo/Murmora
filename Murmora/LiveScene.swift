@@ -5,7 +5,7 @@ import SwiftUI
 /// `intensity` scales particle density so the same engine serves a compact
 /// stage and a full-screen hero. Respects reduce-motion (static frame).
 struct LiveSceneView: View {
-    let active: [GroveSound]
+    let active: [MurmoraSound]
     let volumes: [String: Double]
     var playing: Bool = true
     var reduceMotion: Bool = false
@@ -35,8 +35,8 @@ struct LiveSceneView: View {
     }
 
     var body: some View {
-        let tint = Grove.accent(dominant)
-        let deep = Grove.accentDeep(dominant)
+        let tint = Murmora.accent(dominant)
+        let deep = Murmora.accentDeep(dominant)
         TimelineView(.animation(minimumInterval: 1.0/30.0, paused: !playing || reduceMotion)) { tl in
             Canvas { ctx, size in
                 let t = reduceMotion ? 1000.0 : tl.date.timeIntervalSinceReferenceDate
@@ -52,10 +52,10 @@ struct LiveSceneView: View {
         let I = intensity
 
         // 1. Sky gradient
-        let skyTop = daytime ? Color(red: 0.16, green: 0.20, blue: 0.30) : Grove.bgDeep
+        let skyTop = daytime ? Color(red: 0.16, green: 0.20, blue: 0.30) : Murmora.bgDeep
         let skyBot = deep.opacity(daytime ? 0.55 : 0.40)
         ctx.fill(Path(CGRect(x: 0, y: 0, width: W, height: H)),
-                 with: .linearGradient(Gradient(colors: [skyTop, Grove.bg, skyBot]),
+                 with: .linearGradient(Gradient(colors: [skyTop, Murmora.bg, skyBot]),
                                        startPoint: CGPoint(x: 0, y: 0), endPoint: CGPoint(x: 0, y: H)))
 
         // 2. Atmosphere bloom
@@ -120,7 +120,7 @@ struct LiveSceneView: View {
                     p.addLine(to: CGPoint(x: x, y: y)); x += 12
                 }
                 p.addLine(to: CGPoint(x: W, y: H)); p.addLine(to: CGPoint(x: 0, y: H)); p.closeSubpath()
-                ctx.fill(p, with: .color(Grove.accent(.water).opacity(0.12 + 0.10 * Double(min(1, waveI)) + Double(row) * 0.04)))
+                ctx.fill(p, with: .color(Murmora.accent(.water).opacity(0.12 + 0.10 * Double(min(1, waveI)) + Double(row) * 0.04)))
             }
         }
 
@@ -241,7 +241,7 @@ struct LiveSceneView: View {
             fx = nx
         }
         fg.addLine(to: CGPoint(x: W, y: H)); fg.closeSubpath()
-        ctx.fill(fg, with: .color(Grove.bgDeep.opacity(0.92)))
+        ctx.fill(fg, with: .color(Murmora.bgDeep.opacity(0.92)))
     }
 
     // MARK: small helpers

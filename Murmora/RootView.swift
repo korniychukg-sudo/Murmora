@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct RootView: View {
-    @EnvironmentObject var store: GroveStore
+    @EnvironmentObject var store: MurmoraStore
     @State private var tab = 0
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            Grove.bg.ignoresSafeArea()
+            Murmora.bg.ignoresSafeArea()
             VStack(spacing: 0) {
                 Group {
                     switch tab {
@@ -48,29 +48,29 @@ struct RootView: View {
         .padding(.bottom, 6)
         .background(
             ZStack {
-                Grove.bgDeep.opacity(0.96)
+                Murmora.bgDeep.opacity(0.96)
                 Rectangle().fill(Color.white.opacity(0.05)).frame(height: 1).frame(maxHeight: .infinity, alignment: .top)
             }
             .ignoresSafeArea(edges: .bottom)
         )
     }
 
-    private func tabButton(_ i: Int, _ label: String, _ glyph: GroveGlyph) -> some View {
+    private func tabButton(_ i: Int, _ label: String, _ glyph: MurmoraGlyph) -> some View {
         let selected = tab == i
         return Button {
             Haptic.tap(); withAnimation(.easeInOut(duration: 0.2)) { tab = i }
         } label: {
             VStack(spacing: 4) {
-                GroveIcon(glyph: glyph, size: 24,
-                          color: selected ? Grove.primary : Grove.faint,
+                MurmoraIcon(glyph: glyph, size: 24,
+                          color: selected ? Murmora.primary : Murmora.faint,
                           weight: selected ? 2.6 : 2.0)
                     .frame(height: 26)
                 Text(label)
                     .font(.system(size: 11, weight: selected ? .bold : .medium, design: .rounded))
-                    .foregroundColor(selected ? Grove.primary : Grove.faint)
+                    .foregroundColor(selected ? Murmora.primary : Murmora.faint)
                 // playing indicator dot under Studio
                 if i == 0 && store.isPlaying {
-                    Circle().fill(Grove.gold).frame(width: 5, height: 5)
+                    Circle().fill(Murmora.gold).frame(width: 5, height: 5)
                 } else {
                     Circle().fill(Color.clear).frame(width: 5, height: 5)
                 }
@@ -86,20 +86,20 @@ struct BadgeToast: View {
     var body: some View {
         HStack(spacing: 12) {
             ZStack {
-                Circle().fill(Grove.heroGradient).frame(width: 44, height: 44)
-                GroveIcon(glyph: badge.glyph, size: 22, color: .white)
+                Circle().fill(Murmora.heroGradient).frame(width: 44, height: 44)
+                MurmoraIcon(glyph: badge.glyph, size: 22, color: .white)
             }
             VStack(alignment: .leading, spacing: 2) {
-                Text("Badge unlocked").font(.system(size: 11, weight: .bold, design: .rounded)).foregroundColor(Grove.gold)
-                Text(badge.title).font(.system(size: 16, weight: .heavy, design: .rounded)).foregroundColor(Grove.ink)
+                Text("Badge unlocked").font(.system(size: 11, weight: .bold, design: .rounded)).foregroundColor(Murmora.gold)
+                Text(badge.title).font(.system(size: 16, weight: .heavy, design: .rounded)).foregroundColor(Murmora.ink)
             }
             Spacer()
         }
         .padding(.horizontal, 16).padding(.vertical, 12)
         .background(
             RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(Grove.bgDeep)
-                .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(Grove.gold.opacity(0.5), lineWidth: 1))
+                .fill(Murmora.bgDeep)
+                .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(Murmora.gold.opacity(0.5), lineWidth: 1))
                 .shadow(color: .black.opacity(0.4), radius: 16, y: 8)
         )
         .padding(.horizontal, 24)

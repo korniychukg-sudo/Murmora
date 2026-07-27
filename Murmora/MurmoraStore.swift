@@ -3,7 +3,7 @@ import Combine
 
 enum TimerMode: String { case none, sleep, focus }
 
-final class GroveStore: ObservableObject {
+final class MurmoraStore: ObservableObject {
     // Active soundscape
     @Published var mix: [String: Double] = [:]           // id -> volume 0..1
     @Published var isPlaying = false
@@ -13,7 +13,7 @@ final class GroveStore: ObservableObject {
     @Published var savedMixes: [SavedMix] = []
 
     // Stats & badges
-    @Published var stats = GroveStats()
+    @Published var stats = MurmoraStats()
     @Published var unlockedBadges: Set<String> = []
     @Published var justUnlocked: Badge? = nil
 
@@ -29,7 +29,7 @@ final class GroveStore: ObservableObject {
     @Published var defaultSleepMinutes = 30
     @Published var onboardingSeen = false
 
-    private let audio = GroveAudio()
+    private let audio = MurmoraAudio()
     private var ticker: AnyCancellable?
     private let d = UserDefaults.standard
     private var loadedName: String? = nil     // name of loaded preset/saved, if any
@@ -45,7 +45,7 @@ final class GroveStore: ObservableObject {
 
     // MARK: derived
 
-    var activeSounds: [GroveSound] {
+    var activeSounds: [MurmoraSound] {
         SoundCatalog.all.filter { (mix[$0.id] ?? 0) > 0 }
     }
     var activeCount: Int { activeSounds.count }
@@ -267,7 +267,7 @@ final class GroveStore: ObservableObject {
     func resetAll() {
         clearMix()
         savedMixes = []
-        stats = GroveStats()
+        stats = MurmoraStats()
         unlockedBadges = []
         saveMixes(); saveStats(); saveBadges()
     }
@@ -288,7 +288,7 @@ final class GroveStore: ObservableObject {
     }
     private func load() {
         if let data = d.data(forKey: "savedMixes"), let v = try? JSONDecoder().decode([SavedMix].self, from: data) { savedMixes = v }
-        if let data = d.data(forKey: "stats"), let v = try? JSONDecoder().decode(GroveStats.self, from: data) { stats = v }
+        if let data = d.data(forKey: "stats"), let v = try? JSONDecoder().decode(MurmoraStats.self, from: data) { stats = v }
         if let arr = d.array(forKey: "badges") as? [String] { unlockedBadges = Set(arr) }
         if let data = d.data(forKey: "activeMix"), let v = try? JSONDecoder().decode([String: Double].self, from: data) { mix = v }
         if d.object(forKey: "master") != nil { masterVolume = d.double(forKey: "master") }

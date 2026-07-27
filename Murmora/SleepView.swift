@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SleepView: View {
-    @EnvironmentObject var store: GroveStore
+    @EnvironmentObject var store: MurmoraStore
     @State private var mode: TimerMode = .sleep
     @State private var showImmersive = false
     private let sleepOptions = [10, 15, 30, 45, 60, 90]
@@ -9,8 +9,8 @@ struct SleepView: View {
 
     var body: some View {
         ZStack {
-            AuroraBackground(tint: mode == .sleep ? Grove.primary : Grove.accent(.water),
-                             secondary: Grove.accent(.tones), reduceMotion: store.reduceMotion)
+            AuroraBackground(tint: mode == .sleep ? Murmora.primary : Murmora.accent(.water),
+                             secondary: Murmora.accent(.tones), reduceMotion: store.reduceMotion)
             if store.hasMix {
                 LiveSceneView(active: store.activeSounds, volumes: store.mix,
                               playing: store.isPlaying, reduceMotion: store.reduceMotion, intensity: 0.5)
@@ -34,14 +34,14 @@ struct SleepView: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 22) {
                 VStack(spacing: 4) {
-                    Text("Rest & Focus").font(.system(size: 28, weight: .heavy, design: .rounded)).foregroundColor(Grove.ink)
-                    Text("Play your grove for a set time, then let it fade")
+                    Text("Rest & Focus").font(.system(size: 28, weight: .heavy, design: .rounded)).foregroundColor(Murmora.ink)
+                    Text("Play your soundscape for a set time, then let it fade")
                         .font(.system(size: 13.5, weight: .medium, design: .rounded))
-                        .foregroundColor(Grove.subtle).multilineTextAlignment(.center)
+                        .foregroundColor(Murmora.subtle).multilineTextAlignment(.center)
                 }
                 .padding(.top, 12)
 
-                BreathingOrb(playing: store.isPlaying, tint: mode == .sleep ? Grove.primary : Grove.accent(.water),
+                BreathingOrb(playing: store.isPlaying, tint: mode == .sleep ? Murmora.primary : Murmora.accent(.water),
                              reduceMotion: store.reduceMotion)
                     .frame(height: 190)
 
@@ -51,23 +51,23 @@ struct SleepView: View {
                     modeTab(.focus, "Focus", .target)
                 }
                 .padding(4)
-                .background(Capsule().fill(Grove.card).overlay(Capsule().strokeBorder(Grove.stroke, lineWidth: 1)))
+                .background(Capsule().fill(Murmora.card).overlay(Capsule().strokeBorder(Murmora.stroke, lineWidth: 1)))
 
                 if !store.hasMix {
                     HStack(spacing: 8) {
-                        GroveIcon(glyph: .info, size: 16, color: Grove.gold)
+                        MurmoraIcon(glyph: .info, size: 16, color: Murmora.gold)
                         Text("Pick sounds in Studio or Scenes first.")
-                            .font(.system(size: 13, weight: .semibold, design: .rounded)).foregroundColor(Grove.subtle)
+                            .font(.system(size: 13, weight: .semibold, design: .rounded)).foregroundColor(Murmora.subtle)
                     }
                     .padding(.vertical, 12).padding(.horizontal, 16)
-                    .frame(maxWidth: .infinity).groveCard(padding: 4)
+                    .frame(maxWidth: .infinity).murmoraCard(padding: 4)
                 } else {
                     nowPlayingCard
                 }
 
                 // duration grid
                 Text(mode == .sleep ? "Fade out after" : "Focus for")
-                    .font(.system(size: 15, weight: .bold, design: .rounded)).foregroundColor(Grove.ink)
+                    .font(.system(size: 15, weight: .bold, design: .rounded)).foregroundColor(Murmora.ink)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
                     ForEach(mode == .sleep ? sleepOptions : focusOptions, id: \.self) { min in
@@ -75,12 +75,12 @@ struct SleepView: View {
                             Haptic.soft(); store.startTimer(mode: mode, minutes: min)
                         } label: {
                             VStack(spacing: 3) {
-                                Text("\(min)").font(.system(size: 26, weight: .heavy, design: .rounded)).foregroundColor(Grove.ink)
-                                Text("min").font(.system(size: 11, weight: .semibold, design: .rounded)).foregroundColor(Grove.subtle)
+                                Text("\(min)").font(.system(size: 26, weight: .heavy, design: .rounded)).foregroundColor(Murmora.ink)
+                                Text("min").font(.system(size: 11, weight: .semibold, design: .rounded)).foregroundColor(Murmora.subtle)
                             }
                             .frame(maxWidth: .infinity).padding(.vertical, 16)
-                            .background(RoundedRectangle(cornerRadius: 18).fill(Grove.card)
-                                .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(Grove.stroke, lineWidth: 1)))
+                            .background(RoundedRectangle(cornerRadius: 18).fill(Murmora.card)
+                                .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(Murmora.stroke, lineWidth: 1)))
                         }
                         .buttonStyle(PressableStyle())
                         .disabled(!store.hasMix)
@@ -93,17 +93,17 @@ struct SleepView: View {
         }
     }
 
-    private func modeTab(_ m: TimerMode, _ label: String, _ glyph: GroveGlyph) -> some View {
+    private func modeTab(_ m: TimerMode, _ label: String, _ glyph: MurmoraGlyph) -> some View {
         let sel = mode == m
         return Button {
             Haptic.tap(); withAnimation(.easeInOut(duration: 0.2)) { mode = m }
         } label: {
             HStack(spacing: 6) {
-                GroveIcon(glyph: glyph, size: 16, color: sel ? Grove.bgDeep : Grove.subtle)
-                Text(label).font(.system(size: 14, weight: .bold, design: .rounded)).foregroundColor(sel ? Grove.bgDeep : Grove.subtle)
+                MurmoraIcon(glyph: glyph, size: 16, color: sel ? Murmora.bgDeep : Murmora.subtle)
+                Text(label).font(.system(size: 14, weight: .bold, design: .rounded)).foregroundColor(sel ? Murmora.bgDeep : Murmora.subtle)
             }
             .frame(maxWidth: .infinity).padding(.vertical, 10)
-            .background(Capsule().fill(sel ? Grove.primary : Color.clear))
+            .background(Capsule().fill(sel ? Murmora.primary : Color.clear))
         }
         .buttonStyle(PressableStyle())
     }
@@ -112,29 +112,29 @@ struct SleepView: View {
         HStack(spacing: 12) {
             Button { store.togglePlay() } label: {
                 ZStack {
-                    Circle().fill(Grove.heroGradient).frame(width: 48, height: 48)
-                    GroveIcon(glyph: store.isPlaying ? .pause : .play, size: 20, color: .white)
+                    Circle().fill(Murmora.heroGradient).frame(width: 48, height: 48)
+                    MurmoraIcon(glyph: store.isPlaying ? .pause : .play, size: 20, color: .white)
                 }
             }.buttonStyle(PressableStyle())
             VStack(alignment: .leading, spacing: 3) {
-                Text(store.currentLoadedName ?? "Your blend").font(.system(size: 15, weight: .bold, design: .rounded)).foregroundColor(Grove.ink).lineLimit(1)
+                Text(store.currentLoadedName ?? "Your blend").font(.system(size: 15, weight: .bold, design: .rounded)).foregroundColor(Murmora.ink).lineLimit(1)
                 HStack(spacing: -8) {
                     ForEach(store.activeSounds.prefix(5)) { s in
-                        SoundToken(sound: s, size: 26).overlay(Circle().strokeBorder(Grove.bg, lineWidth: 1.5))
+                        SoundToken(sound: s, size: 26).overlay(Circle().strokeBorder(Murmora.bg, lineWidth: 1.5))
                     }
                 }
             }
             Spacer()
             Button { Haptic.soft(); showImmersive = true } label: {
                 HStack(spacing: 5) {
-                    GroveIcon(glyph: .sparkle, size: 13, color: Grove.bgDeep)
-                    Text("Immerse").font(.system(size: 12.5, weight: .bold, design: .rounded)).foregroundColor(Grove.bgDeep)
+                    MurmoraIcon(glyph: .sparkle, size: 13, color: Murmora.bgDeep)
+                    Text("Immerse").font(.system(size: 12.5, weight: .bold, design: .rounded)).foregroundColor(Murmora.bgDeep)
                 }
                 .padding(.horizontal, 12).padding(.vertical, 7)
-                .background(Capsule().fill(Grove.gold))
+                .background(Capsule().fill(Murmora.gold))
             }.buttonStyle(PressableStyle())
         }
-        .groveCard(padding: 12)
+        .murmoraCard(padding: 12)
     }
 
     // MARK: active timer
@@ -143,32 +143,32 @@ struct SleepView: View {
         VStack(spacing: 26) {
             Spacer()
             Text(store.timerMode == .sleep ? "Drifting off" : "In focus")
-                .font(.system(size: 15, weight: .bold, design: .rounded)).foregroundColor(Grove.gold)
+                .font(.system(size: 15, weight: .bold, design: .rounded)).foregroundColor(Murmora.gold)
                 .textCase(.uppercase)
             ZStack {
                 ProgressRing(progress: store.timerProgress,
-                             tint: store.timerMode == .sleep ? Grove.primary : Grove.accent(.water), line: 12)
+                             tint: store.timerMode == .sleep ? Murmora.primary : Murmora.accent(.water), line: 12)
                     .frame(width: 250, height: 250)
-                BreathingOrb(playing: store.isPlaying, tint: store.timerMode == .sleep ? Grove.primary : Grove.accent(.water),
+                BreathingOrb(playing: store.isPlaying, tint: store.timerMode == .sleep ? Murmora.primary : Murmora.accent(.water),
                              reduceMotion: store.reduceMotion, compact: true)
                     .frame(width: 180, height: 180)
                 VStack(spacing: 4) {
                     Text(formatMinSec(store.timerRemaining))
-                        .font(.system(size: 46, weight: .heavy, design: .rounded)).foregroundColor(Grove.ink)
+                        .font(.system(size: 46, weight: .heavy, design: .rounded)).foregroundColor(Murmora.ink)
                         .monospacedDigit()
-                    Text("remaining").font(.system(size: 13, weight: .medium, design: .rounded)).foregroundColor(Grove.subtle)
+                    Text("remaining").font(.system(size: 13, weight: .medium, design: .rounded)).foregroundColor(Murmora.subtle)
                 }
             }
             Text(store.currentLoadedName ?? "\(store.activeCount) sounds playing")
-                .font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundColor(Grove.subtle)
+                .font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundColor(Murmora.subtle)
             Spacer()
             Button {
                 Haptic.tap(); store.cancelTimer()
             } label: {
                 Text("Cancel timer")
-                    .font(.system(size: 16, weight: .bold, design: .rounded)).foregroundColor(Grove.ink)
+                    .font(.system(size: 16, weight: .bold, design: .rounded)).foregroundColor(Murmora.ink)
                     .frame(maxWidth: .infinity).padding(.vertical, 15)
-                    .background(Capsule().fill(Grove.card).overlay(Capsule().strokeBorder(Grove.stroke, lineWidth: 1)))
+                    .background(Capsule().fill(Murmora.card).overlay(Capsule().strokeBorder(Murmora.stroke, lineWidth: 1)))
                     .padding(.horizontal, 40)
             }
             .buttonStyle(PressableStyle())
@@ -200,7 +200,7 @@ struct BreathingOrb: View {
                 .frame(width: compact ? 96 : 120, height: compact ? 96 : 120)
                 .scaleEffect(breathe ? 1.08 : 0.86)
                 .glow(tint, radius: 30, opacity: 0.6)
-            GroveIcon(glyph: .leaf, size: compact ? 30 : 40, color: .white.opacity(0.9))
+            MurmoraIcon(glyph: .leaf, size: compact ? 30 : 40, color: .white.opacity(0.9))
                 .scaleEffect(breathe ? 1.05 : 0.92)
         }
         .onAppear {

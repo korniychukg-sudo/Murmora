@@ -3,7 +3,7 @@ import SwiftUI
 /// Full-screen "Now Playing" — the living scene fills the display with a soft
 /// clock and auto-hiding minimal controls. Beautiful to leave on overnight.
 struct ImmersiveView: View {
-    @EnvironmentObject var store: GroveStore
+    @EnvironmentObject var store: MurmoraStore
     @Environment(\.presentationMode) var presentation
     @State private var showControls = true
     @State private var hideGen = 0
@@ -54,7 +54,7 @@ struct ImmersiveView: View {
                 Text(clockFormatter.string(from: ctx.date))
                     .font(.system(size: 74, weight: .heavy, design: .rounded))
                     .foregroundColor(.white)
-                    .shadow(color: Grove.primary.opacity(0.6), radius: 24)
+                    .shadow(color: Murmora.primary.opacity(0.6), radius: 24)
                     .shadow(color: .black.opacity(0.4), radius: 8, y: 4)
                 Text(store.currentLoadedName ?? "\(store.activeCount) sounds")
                     .font(.system(size: 16, weight: .semibold, design: .rounded))
@@ -75,7 +75,7 @@ struct ImmersiveView: View {
         HStack {
             if store.timerMode != .none {
                 HStack(spacing: 6) {
-                    GroveIcon(glyph: .moon, size: 15, color: Grove.gold)
+                    MurmoraIcon(glyph: .moon, size: 15, color: Murmora.gold)
                     Text(formatMinSec(store.timerRemaining))
                         .font(.system(size: 15, weight: .bold, design: .rounded)).foregroundColor(.white).monospacedDigit()
                 }
@@ -86,7 +86,7 @@ struct ImmersiveView: View {
             Button { presentation.wrappedValue.dismiss() } label: {
                 ZStack {
                     Circle().fill(Color.black.opacity(0.4)).frame(width: 42, height: 42)
-                    GroveIcon(glyph: .close, size: 16, color: .white)
+                    MurmoraIcon(glyph: .close, size: 16, color: .white)
                 }
             }.buttonStyle(PressableStyle())
         }
@@ -102,14 +102,14 @@ struct ImmersiveView: View {
                     } label: {
                         Text("\(m)m")
                             .font(.system(size: 14, weight: .bold, design: .rounded))
-                            .foregroundColor(store.timerMode == .sleep ? Grove.bgDeep : .white)
+                            .foregroundColor(store.timerMode == .sleep ? Murmora.bgDeep : .white)
                             .padding(.horizontal, 16).padding(.vertical, 9)
-                            .background(Capsule().fill(store.timerMode == .sleep ? Grove.gold : Color.white.opacity(0.14)))
+                            .background(Capsule().fill(store.timerMode == .sleep ? Murmora.gold : Color.white.opacity(0.14)))
                     }.buttonStyle(PressableStyle())
                 }
                 if store.timerMode != .none {
                     Button { Haptic.tap(); store.cancelTimer() } label: {
-                        GroveIcon(glyph: .close, size: 14, color: .white)
+                        MurmoraIcon(glyph: .close, size: 14, color: .white)
                             .padding(10).background(Circle().fill(Color.white.opacity(0.14)))
                     }.buttonStyle(PressableStyle())
                 }
@@ -118,9 +118,9 @@ struct ImmersiveView: View {
                 Haptic.soft(); store.togglePlay(); scheduleHide()
             } label: {
                 ZStack {
-                    Circle().fill(Grove.heroGradient).frame(width: 72, height: 72)
-                        .glow(Grove.primary, radius: 20, opacity: 0.6)
-                    GroveIcon(glyph: store.isPlaying ? .pause : .play, size: 30, color: .white)
+                    Circle().fill(Murmora.heroGradient).frame(width: 72, height: 72)
+                        .glow(Murmora.primary, radius: 20, opacity: 0.6)
+                    MurmoraIcon(glyph: store.isPlaying ? .pause : .play, size: 30, color: .white)
                         .offset(x: store.isPlaying ? 0 : 2)
                 }
             }.buttonStyle(PressableStyle())

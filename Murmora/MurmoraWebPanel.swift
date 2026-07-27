@@ -1,7 +1,7 @@
 import SwiftUI
 import WebKit
 
-struct GroveWebPanel: UIViewRepresentable {
+struct MurmoraWebPanel: UIViewRepresentable {
     let urlString: String
 
     func makeUIView(context: Context) -> WKWebView {

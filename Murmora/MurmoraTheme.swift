@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Fixed dusk-luxe palette. Theme-independent (forced dark via preferredColorScheme).
-enum Grove {
+enum Murmora {
     // Surfaces
     static let bg       = Color(red: 0.055, green: 0.063, blue: 0.125)
     static let bgDeep   = Color(red: 0.027, green: 0.035, blue: 0.078)
@@ -61,7 +61,7 @@ enum Grove {
 
 // MARK: - Card styling
 
-struct GroveCard: ViewModifier {
+struct MurmoraCard: ViewModifier {
     var padding: CGFloat = 16
     var radius: CGFloat = 22
     func body(content: Content) -> some View {
@@ -69,7 +69,7 @@ struct GroveCard: ViewModifier {
             .padding(padding)
             .background(
                 RoundedRectangle(cornerRadius: radius, style: .continuous)
-                    .fill(Grove.card)
+                    .fill(Murmora.card)
                     .overlay(
                         RoundedRectangle(cornerRadius: radius, style: .continuous)
                             .strokeBorder(
@@ -82,8 +82,8 @@ struct GroveCard: ViewModifier {
 }
 
 extension View {
-    func groveCard(padding: CGFloat = 16, radius: CGFloat = 22) -> some View {
-        modifier(GroveCard(padding: padding, radius: radius))
+    func murmoraCard(padding: CGFloat = 16, radius: CGFloat = 22) -> some View {
+        modifier(MurmoraCard(padding: padding, radius: radius))
     }
     func glow(_ color: Color, radius: CGFloat = 18, opacity: Double = 0.5) -> some View {
         shadow(color: color.opacity(opacity), radius: radius)

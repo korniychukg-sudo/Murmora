@@ -1,4 +1,4 @@
-// Sound Grove — illustrated art generator (Core Graphics).
+// Murmora — illustrated art generator (Core Graphics).
 // swiftc -O artgen.swift -o artgen && ./artgen <artDir> <iconPath>
 import Foundation
 import CoreGraphics
@@ -678,7 +678,7 @@ func onboard(_ idx: Int, path: String) {
                center: CGPoint(x: 500, y: 560), rad: 460)
     var rng = RNG(UInt64(idx*97+3))
     for _ in 0..<120 { circle(c, CGFloat(rng.r(0,Double(W))), CGFloat(rng.r(0,Double(H))), CGFloat(rng.r(1,3)), col(1,1,1,rng.r(0.1,0.5))) }
-    // central grove of discs
+    // central murmora of discs
     let motifs: [[String]] = [["rain","campfire","ocean"], ["chimes","piano","bowl"], ["owl","birds","stream"]]
     let ms = motifs[idx % 3]
     let positions: [(CGFloat,CGFloat,CGFloat)] = [(500,560,150),(330,430,95),(680,440,95)]

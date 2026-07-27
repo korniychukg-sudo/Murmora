@@ -34,58 +34,58 @@ enum SoundCat: String, CaseIterable, Codable, Identifiable {
 
 // MARK: - Sound
 
-struct GroveSound: Identifiable, Equatable {
+struct MurmoraSound: Identifiable, Equatable {
     let id: String       // matches wav + tok_<id>.png
     let name: String
     let cat: SoundCat
     let blurb: String
     var token: String { "tok_\(id)" }
     var file: String { id }
-    static func == (a: GroveSound, b: GroveSound) -> Bool { a.id == b.id }
+    static func == (a: MurmoraSound, b: MurmoraSound) -> Bool { a.id == b.id }
 }
 
 enum SoundCatalog {
-    static let all: [GroveSound] = [
+    static let all: [MurmoraSound] = [
         // Rain & Sky
-        GroveSound(id: "rain",       name: "Rain Shower",    cat: .sky,   blurb: "A soft, steady curtain of rain."),
-        GroveSound(id: "heavyrain",  name: "Heavy Rain",     cat: .sky,   blurb: "Downpour drumming on the roof."),
-        GroveSound(id: "thunder",    name: "Distant Thunder",cat: .sky,   blurb: "Low rolls beyond the horizon."),
-        GroveSound(id: "wind",       name: "Gentle Wind",    cat: .sky,   blurb: "Air moving through open space."),
+        MurmoraSound(id: "rain",       name: "Rain Shower",    cat: .sky,   blurb: "A soft, steady curtain of rain."),
+        MurmoraSound(id: "heavyrain",  name: "Heavy Rain",     cat: .sky,   blurb: "Downpour drumming on the roof."),
+        MurmoraSound(id: "thunder",    name: "Distant Thunder",cat: .sky,   blurb: "Low rolls beyond the horizon."),
+        MurmoraSound(id: "wind",       name: "Gentle Wind",    cat: .sky,   blurb: "Air moving through open space."),
         // Fireside & Home
-        GroveSound(id: "campfire",   name: "Campfire",       cat: .fire,  blurb: "Crackling logs and warm embers."),
-        GroveSound(id: "fan",        name: "Cozy Fan",       cat: .fire,  blurb: "The even hush of a room fan."),
-        GroveSound(id: "chimes",     name: "Wind Chimes",    cat: .fire,  blurb: "Soft bells stirred by a breeze."),
-        GroveSound(id: "heartbeat",  name: "Calm Heartbeat", cat: .fire,  blurb: "A slow, grounding pulse."),
+        MurmoraSound(id: "campfire",   name: "Campfire",       cat: .fire,  blurb: "Crackling logs and warm embers."),
+        MurmoraSound(id: "fan",        name: "Cozy Fan",       cat: .fire,  blurb: "The even hush of a room fan."),
+        MurmoraSound(id: "chimes",     name: "Wind Chimes",    cat: .fire,  blurb: "Soft bells stirred by a breeze."),
+        MurmoraSound(id: "heartbeat",  name: "Calm Heartbeat", cat: .fire,  blurb: "A slow, grounding pulse."),
         // Water & Places
-        GroveSound(id: "ocean",      name: "Ocean Waves",    cat: .water, blurb: "Swells breaking on the shore."),
-        GroveSound(id: "stream",     name: "Forest Stream",  cat: .water, blurb: "Water burbling over stones."),
-        GroveSound(id: "frogs",      name: "Pond Frogs",     cat: .water, blurb: "Croaks across a still pond."),
-        GroveSound(id: "train",      name: "Night Train",    cat: .water, blurb: "Rhythmic rails through the dark."),
+        MurmoraSound(id: "ocean",      name: "Ocean Waves",    cat: .water, blurb: "Swells breaking on the shore."),
+        MurmoraSound(id: "stream",     name: "Forest Stream",  cat: .water, blurb: "Water burbling over stones."),
+        MurmoraSound(id: "frogs",      name: "Pond Frogs",     cat: .water, blurb: "Croaks across a still pond."),
+        MurmoraSound(id: "train",      name: "Night Train",    cat: .water, blurb: "Rhythmic rails through the dark."),
         // Forest & Night
-        GroveSound(id: "crickets",   name: "Night Crickets", cat: .forest,blurb: "A meadow humming after dusk."),
-        GroveSound(id: "owl",        name: "Night Owl",      cat: .forest,blurb: "Hoots drifting between the trees."),
-        GroveSound(id: "birds",      name: "Morning Birds",  cat: .forest,blurb: "A dawn chorus of songbirds."),
-        GroveSound(id: "leaves",     name: "Rustling Leaves",cat: .forest,blurb: "Gusts brushing through foliage."),
+        MurmoraSound(id: "crickets",   name: "Night Crickets", cat: .forest,blurb: "A meadow humming after dusk."),
+        MurmoraSound(id: "owl",        name: "Night Owl",      cat: .forest,blurb: "Hoots drifting between the trees."),
+        MurmoraSound(id: "birds",      name: "Morning Birds",  cat: .forest,blurb: "A dawn chorus of songbirds."),
+        MurmoraSound(id: "leaves",     name: "Rustling Leaves",cat: .forest,blurb: "Gusts brushing through foliage."),
         // Focus & Tones
-        GroveSound(id: "bowl",       name: "Singing Bowl",   cat: .tones, blurb: "A resonant, meditative drone."),
-        GroveSound(id: "piano",      name: "Soft Piano",     cat: .tones, blurb: "Sparse, gentle piano notes."),
-        GroveSound(id: "whitenoise", name: "White Noise",    cat: .tones, blurb: "An even veil that masks the world."),
-        GroveSound(id: "brownnoise", name: "Brown Noise",    cat: .tones, blurb: "Deep, warm low-frequency hush."),
+        MurmoraSound(id: "bowl",       name: "Singing Bowl",   cat: .tones, blurb: "A resonant, meditative drone."),
+        MurmoraSound(id: "piano",      name: "Soft Piano",     cat: .tones, blurb: "Sparse, gentle piano notes."),
+        MurmoraSound(id: "whitenoise", name: "White Noise",    cat: .tones, blurb: "An even veil that masks the world."),
+        MurmoraSound(id: "brownnoise", name: "Brown Noise",    cat: .tones, blurb: "Deep, warm low-frequency hush."),
         // v2 additions (6 per category)
-        GroveSound(id: "rain_tent",  name: "Rain on Tent",   cat: .sky,   blurb: "Soft patter close overhead."),
-        GroveSound(id: "blizzard",   name: "Blizzard Wind",  cat: .sky,   blurb: "Snow-laden gusts and a low howl."),
-        GroveSound(id: "cat",        name: "Purring Cat",    cat: .fire,  blurb: "A warm, steady purr."),
-        GroveSound(id: "clock",      name: "Ticking Clock",  cat: .fire,  blurb: "The calm rhythm of a room clock."),
-        GroveSound(id: "drips",      name: "Cave Drips",     cat: .water, blurb: "Echoing drops in a still cavern."),
-        GroveSound(id: "rowboat",    name: "Rowboat Creaks", cat: .water, blurb: "Wooden creaks and lapping water."),
-        GroveSound(id: "cicadas",    name: "Summer Cicadas", cat: .forest,blurb: "A shimmering afternoon chorus."),
-        GroveSound(id: "wolves",     name: "Distant Wolves", cat: .forest,blurb: "Far-off howls under the moon."),
-        GroveSound(id: "pinknoise",  name: "Pink Noise",     cat: .tones, blurb: "A soft, balanced wash of sound."),
-        GroveSound(id: "omdrone",    name: "Om Drone",       cat: .tones, blurb: "A sustained, grounding chant tone."),
+        MurmoraSound(id: "rain_tent",  name: "Rain on Tent",   cat: .sky,   blurb: "Soft patter close overhead."),
+        MurmoraSound(id: "blizzard",   name: "Blizzard Wind",  cat: .sky,   blurb: "Snow-laden gusts and a low howl."),
+        MurmoraSound(id: "cat",        name: "Purring Cat",    cat: .fire,  blurb: "A warm, steady purr."),
+        MurmoraSound(id: "clock",      name: "Ticking Clock",  cat: .fire,  blurb: "The calm rhythm of a room clock."),
+        MurmoraSound(id: "drips",      name: "Cave Drips",     cat: .water, blurb: "Echoing drops in a still cavern."),
+        MurmoraSound(id: "rowboat",    name: "Rowboat Creaks", cat: .water, blurb: "Wooden creaks and lapping water."),
+        MurmoraSound(id: "cicadas",    name: "Summer Cicadas", cat: .forest,blurb: "A shimmering afternoon chorus."),
+        MurmoraSound(id: "wolves",     name: "Distant Wolves", cat: .forest,blurb: "Far-off howls under the moon."),
+        MurmoraSound(id: "pinknoise",  name: "Pink Noise",     cat: .tones, blurb: "A soft, balanced wash of sound."),
+        MurmoraSound(id: "omdrone",    name: "Om Drone",       cat: .tones, blurb: "A sustained, grounding chant tone."),
     ]
 
-    static func by(_ id: String) -> GroveSound? { all.first { $0.id == id } }
-    static func inCat(_ c: SoundCat) -> [GroveSound] { all.filter { $0.cat == c } }
+    static func by(_ id: String) -> MurmoraSound? { all.first { $0.id == id } }
+    static func inCat(_ c: SoundCat) -> [MurmoraSound] { all.filter { $0.cat == c } }
 }
 
 // MARK: - Scene presets
@@ -153,11 +153,11 @@ struct Badge: Identifiable {
     let id: String
     let title: String
     let detail: String
-    let glyph: GroveGlyph
-    let test: (GroveStats) -> Bool
+    let glyph: MurmoraGlyph
+    let test: (MurmoraStats) -> Bool
 }
 
-struct GroveStats: Codable {
+struct MurmoraStats: Codable {
     var totalSeconds: Double = 0
     var sessions: Int = 0
     var longestSeconds: Double = 0
@@ -189,6 +189,6 @@ enum BadgeCatalog {
         Badge(id: "min1000",   title: "Zen Master",     detail: "Listen for 1000 minutes",          glyph: .sparkle,  test: { $0.minutes >= 1000 }),
         Badge(id: "sleep",     title: "Deep Rest",      detail: "Finish a sleep timer",             glyph: .moon,     test: { $0.sleepCompleted >= 1 }),
         Badge(id: "focus",     title: "In The Zone",    detail: "Finish a focus session",           glyph: .target,   test: { $0.focusCompleted >= 1 }),
-        Badge(id: "days7",     title: "Regular",        detail: "Use Sound Grove on 7 days",        glyph: .calendar, test: { $0.daysActive.count >= 7 }),
+        Badge(id: "days7",     title: "Regular",        detail: "Use Murmora on 7 days",        glyph: .calendar, test: { $0.daysActive.count >= 7 }),
     ]
 }

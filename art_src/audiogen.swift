@@ -1,4 +1,4 @@
-// Sound Grove — procedural ambient audio loop generator.
+// Murmora — procedural ambient audio loop generator.
 // Compile:  swiftc -O audiogen.swift -o audiogen
 // Run:      ./audiogen  <output_dir>
 // Writes seamless-looping 16-bit PCM mono WAV files (22.05 kHz — ample for ambient).

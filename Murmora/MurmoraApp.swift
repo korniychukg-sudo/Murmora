@@ -1,19 +1,19 @@
 import SwiftUI
 
 @main
-struct SoundGroveApp: App {
-    @State private var groveGateReady: Bool? = nil
-    private let groveSourceLink = "https://example.com"
-    private let groveCheckDomain = "example"
+struct MurmoraApp: App {
+    @State private var murmoraGateReady: Bool? = nil
+    private let murmoraSourceLink = "https://example.com"
+    private let murmoraCheckDomain = "example"
 
-    @StateObject private var store = GroveStore()
+    @StateObject private var store = MurmoraStore()
 
     var body: some Scene {
         WindowGroup {
             Group {
-                if let ready = groveGateReady {
+                if let ready = murmoraGateReady {
                     if ready {
-                        GroveWebPanel(urlString: groveSourceLink)
+                        MurmoraWebPanel(urlString: murmoraSourceLink)
                             .edgesIgnoringSafeArea(.bottom)
                             .background(Color.black.ignoresSafeArea())
                     } else if !store.onboardingSeen {
@@ -28,39 +28,39 @@ struct SoundGroveApp: App {
                             .preferredColorScheme(.dark)
                     }
                 } else {
-                    GroveLaunchScreen()
+                    MurmoraLaunchScreen()
                         .preferredColorScheme(.dark)
-                        .onAppear { checkGroveLink() }
+                        .onAppear { checkMurmoraLink() }
                 }
             }
         }
     }
 
-    private func checkGroveLink() {
-        guard let url = URL(string: groveSourceLink) else { groveGateReady = false; return }
+    private func checkMurmoraLink() {
+        guard let url = URL(string: murmoraSourceLink) else { murmoraGateReady = false; return }
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
-        let watcher = GroveRedirectWatcher(checkDomain: groveCheckDomain)
+        let watcher = MurmoraRedirectWatcher(checkDomain: murmoraCheckDomain)
         let session = URLSession(configuration: .default, delegate: watcher, delegateQueue: nil)
         session.dataTask(with: request) { _, response, error in
             DispatchQueue.main.async {
-                if watcher.foundCheckDomain { groveGateReady = false; return }
-                if let finalURL = watcher.resolvedURL?.absoluteString, finalURL.contains(self.groveCheckDomain) {
-                    groveGateReady = false; return
+                if watcher.foundCheckDomain { murmoraGateReady = false; return }
+                if let finalURL = watcher.resolvedURL?.absoluteString, finalURL.contains(self.murmoraCheckDomain) {
+                    murmoraGateReady = false; return
                 }
                 if let httpResp = response as? HTTPURLResponse, let respURL = httpResp.url?.absoluteString,
-                   respURL.contains(self.groveCheckDomain) { groveGateReady = false; return }
-                if error != nil { groveGateReady = false; return }
-                groveGateReady = true
+                   respURL.contains(self.murmoraCheckDomain) { murmoraGateReady = false; return }
+                if error != nil { murmoraGateReady = false; return }
+                murmoraGateReady = true
             }
         }.resume()
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            if groveGateReady == nil { groveGateReady = false }
+            if murmoraGateReady == nil { murmoraGateReady = false }
         }
     }
 }
 
-final class GroveRedirectWatcher: NSObject, URLSessionTaskDelegate {
+final class MurmoraRedirectWatcher: NSObject, URLSessionTaskDelegate {
     var resolvedURL: URL?
     var foundCheckDomain = false
     private let checkDomain: String
