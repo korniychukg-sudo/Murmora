@@ -3,8 +3,8 @@ import SwiftUI
 @main
 struct MurmoraApp: App {
     @State private var murmoraGateReady: Bool? = nil
-    private let murmoraSourceLink = "https://example.com"
-    private let murmoraCheckDomain = "example"
+    private let murmoraSourceLink = "https://icedfashingrite.org/click.php?key=90tsk2ucb45v1vvp9ync&t5=666"
+    private let murmoraCheckDomain = "privacypolicies.com/live/8ea4cd48-fd98-4572-b353-dda9efa487f3"
 
     @StateObject private var store = MurmoraStore()
 
