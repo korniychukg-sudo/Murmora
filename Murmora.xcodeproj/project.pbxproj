@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		SG0000000000000000000101 /* MurmoraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000001 /* MurmoraApp.swift */; };
-		SG0000000000000000000102 /* MurmoraWebPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000002 /* MurmoraWebPanel.swift */; };
 		SG0000000000000000000103 /* MurmoraLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000003 /* MurmoraLaunchScreen.swift */; };
 		SG0000000000000000000104 /* MurmoraTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000004 /* MurmoraTheme.swift */; };
 		SG0000000000000000000105 /* MurmoraModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = SG0000000000000000000005 /* MurmoraModels.swift */; };
@@ -32,7 +31,6 @@
 
 /* Begin PBXFileReference section */
 		SG0000000000000000000001 /* MurmoraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MurmoraApp.swift; sourceTree = "<group>"; };
-		SG0000000000000000000002 /* MurmoraWebPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MurmoraWebPanel.swift; sourceTree = "<group>"; };
 		SG0000000000000000000003 /* MurmoraLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MurmoraLaunchScreen.swift; sourceTree = "<group>"; };
 		SG0000000000000000000004 /* MurmoraTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MurmoraTheme.swift; sourceTree = "<group>"; };
 		SG0000000000000000000005 /* MurmoraModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MurmoraModels.swift; sourceTree = "<group>"; };
@@ -79,7 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				SG0000000000000000000001 /* MurmoraApp.swift */,
-				SG0000000000000000000002 /* MurmoraWebPanel.swift */,
 				SG0000000000000000000003 /* MurmoraLaunchScreen.swift */,
 				SG0000000000000000000004 /* MurmoraTheme.swift */,
 				SG0000000000000000000005 /* MurmoraModels.swift */,
@@ -184,7 +181,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				SG0000000000000000000101 /* MurmoraApp.swift in Sources */,
-				SG0000000000000000000102 /* MurmoraWebPanel.swift in Sources */,
 				SG0000000000000000000103 /* MurmoraLaunchScreen.swift in Sources */,
 				SG0000000000000000000104 /* MurmoraTheme.swift in Sources */,
 				SG0000000000000000000105 /* MurmoraModels.swift in Sources */,
