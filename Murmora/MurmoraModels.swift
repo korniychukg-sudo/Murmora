@@ -136,6 +136,81 @@ enum SceneCatalog {
     ]
 }
 
+// MARK: - Breathing patterns
+
+enum BreathPhase: String {
+    case inhale, holdIn, exhale, holdOut
+    var label: String {
+        switch self {
+        case .inhale:  return "Breathe in"
+        case .holdIn:  return "Hold"
+        case .exhale:  return "Breathe out"
+        case .holdOut: return "Rest"
+        }
+    }
+}
+
+struct BreathPattern: Identifiable {
+    let id: String
+    let name: String
+    let blurb: String
+    let detail: String
+    let cat: SoundCat
+    let inhale: Double
+    let holdIn: Double
+    let exhale: Double
+    let holdOut: Double
+
+    var cycle: Double { inhale + holdIn + exhale + holdOut }
+    var ratio: String {
+        let parts = [inhale, holdIn, exhale, holdOut].filter { $0 > 0 }
+        return parts.map { String(Int($0)) }.joined(separator: "-")
+    }
+
+    /// Phase and its 0..1 progress at `t` seconds into a cycle.
+    func phase(at t: Double) -> (BreathPhase, Double) {
+        var edge = inhale
+        if t < edge { return (.inhale, inhale > 0 ? t / inhale : 1) }
+        if holdIn > 0 {
+            if t < edge + holdIn { return (.holdIn, (t - edge) / holdIn) }
+            edge += holdIn
+        }
+        if t < edge + exhale { return (.exhale, exhale > 0 ? (t - edge) / exhale : 1) }
+        edge += exhale
+        if holdOut > 0 { return (.holdOut, min(1, (t - edge) / holdOut)) }
+        return (.exhale, 1)
+    }
+
+    /// 0..1 fullness of the lungs — drives the ring size.
+    func fullness(at t: Double) -> Double {
+        let (p, k) = phase(at: t)
+        switch p {
+        case .inhale:  return k
+        case .holdIn:  return 1
+        case .exhale:  return 1 - k
+        case .holdOut: return 0
+        }
+    }
+}
+
+enum BreathCatalog {
+    static let all: [BreathPattern] = [
+        BreathPattern(id: "box", name: "Box Breathing", blurb: "Even four counts on every side.",
+                      detail: "Used by divers and athletes to steady the nerves before a demanding moment. Equal counts keep your attention from wandering.",
+                      cat: .tones, inhale: 4, holdIn: 4, exhale: 4, holdOut: 4),
+        BreathPattern(id: "relax", name: "4-7-8 Relax", blurb: "A long exhale to wind down.",
+                      detail: "The extended exhale is the part that settles you. Best paired with a sleep timer once you are already in bed.",
+                      cat: .sky, inhale: 4, holdIn: 7, exhale: 8, holdOut: 0),
+        BreathPattern(id: "calm", name: "Calm 4-6", blurb: "Gentle, no holding at all.",
+                      detail: "Nothing to hold and nothing to count past six — the easiest pattern to start with if breathwork is new to you.",
+                      cat: .water, inhale: 4, holdIn: 0, exhale: 6, holdOut: 0),
+        BreathPattern(id: "unwind", name: "Unwind 5-5", blurb: "A slow, balanced rhythm.",
+                      detail: "Five in, five out lands close to six breaths a minute, the pace people naturally fall into when they are deeply relaxed.",
+                      cat: .forest, inhale: 5, holdIn: 0, exhale: 5, holdOut: 0),
+    ]
+    static func by(_ id: String) -> BreathPattern? { all.first { $0.id == id } }
+}
+
 // MARK: - Saved mix
 
 struct SavedMix: Identifiable, Codable, Equatable {
@@ -168,8 +243,12 @@ struct MurmoraStats: Codable {
     var sleepCompleted: Int = 0
     var focusCompleted: Int = 0
     var daysActive: [String] = []            // yyyy-mm-dd
+    var perDay: [String: Double] = [:]       // day key -> seconds listened
+    var breathSessions: Int = 0
+    var breathSeconds: Double = 0
 
     var minutes: Int { Int(totalSeconds / 60) }
+    var breathMinutes: Int { Int(breathSeconds / 60) }
     var favoriteSound: String? {
         perSound.max { $0.value < $1.value }?.key
     }
@@ -189,6 +268,9 @@ enum BadgeCatalog {
         Badge(id: "min1000",   title: "Zen Master",     detail: "Listen for 1000 minutes",          glyph: .sparkle,  test: { $0.minutes >= 1000 }),
         Badge(id: "sleep",     title: "Deep Rest",      detail: "Finish a sleep timer",             glyph: .moon,     test: { $0.sleepCompleted >= 1 }),
         Badge(id: "focus",     title: "In The Zone",    detail: "Finish a focus session",           glyph: .target,   test: { $0.focusCompleted >= 1 }),
-        Badge(id: "days7",     title: "Regular",        detail: "Use Murmora on 7 days",        glyph: .calendar, test: { $0.daysActive.count >= 7 }),
+        Badge(id: "days7",     title: "Regular",        detail: "Use Murmora on 7 days",            glyph: .calendar, test: { $0.daysActive.count >= 7 }),
+        Badge(id: "breath1",   title: "First Breath In",detail: "Finish a breathing session",       glyph: .leaf,     test: { $0.breathSessions >= 1 }),
+        Badge(id: "breath10",  title: "Steady Rhythm",  detail: "Finish 10 breathing sessions",     glyph: .leaf,     test: { $0.breathSessions >= 10 }),
+        Badge(id: "breath60",  title: "Long Exhale",    detail: "Breathe along for 60 minutes",     glyph: .heart,    test: { $0.breathMinutes >= 60 }),
     ]
 }

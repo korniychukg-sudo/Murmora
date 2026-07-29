@@ -198,6 +198,7 @@ final class MurmoraStore: ObservableObject {
         if isPlaying {
             stats.totalSeconds += 1
             sessionAccum += 1
+            stats.perDay[Self.dayKey(Date()), default: 0] += 1
             for s in activeSounds { stats.perSound[s.id, default: 0] += 1 }
             if sessionAccum > stats.longestSeconds { stats.longestSeconds = sessionAccum }
             if Int(stats.totalSeconds) % 15 == 0 { recomputeBadges(); saveStats() }
@@ -247,6 +248,66 @@ final class MurmoraStore: ObservableObject {
     static func dayKey(_ date: Date) -> String {
         let c = Calendar.current.dateComponents([.year, .month, .day], from: date)
         return "\(c.year ?? 0)-\(c.month ?? 0)-\(c.day ?? 0)"
+    }
+
+    // MARK: breathing
+
+    /// Called when a breathing session finishes or is stopped part way.
+    func logBreath(seconds: Double) {
+        guard seconds >= 20 else { return }        // ignore accidental taps
+        stats.breathSeconds += seconds
+        stats.breathSessions += 1
+        markDayActive()
+        recomputeBadges()
+        saveStats()
+    }
+
+    // MARK: streaks & daily history
+
+    /// Days listened or breathed in a row, counting back from today.
+    var currentStreak: Int {
+        let set = Set(stats.daysActive)
+        var n = 0
+        var day = Date()
+        while set.contains(Self.dayKey(day)) {
+            n += 1
+            guard let prev = Calendar.current.date(byAdding: .day, value: -1, to: day) else { break }
+            day = prev
+        }
+        return n
+    }
+
+    /// Longest run of consecutive active days within the past year.
+    var bestStreak: Int {
+        let set = Set(stats.daysActive)
+        var best = 0, run = 0
+        var day = Date()
+        for _ in 0..<365 {
+            if set.contains(Self.dayKey(day)) { run += 1; best = max(best, run) } else { run = 0 }
+            guard let prev = Calendar.current.date(byAdding: .day, value: -1, to: day) else { break }
+            day = prev
+        }
+        return max(best, currentStreak)
+    }
+
+    /// Seconds listened per day for the last `days` days, oldest first.
+    func recentDays(_ days: Int) -> [(date: Date, seconds: Double)] {
+        var out: [(Date, Double)] = []
+        for back in stride(from: days - 1, through: 0, by: -1) {
+            guard let d = Calendar.current.date(byAdding: .day, value: -back, to: Date()) else { continue }
+            out.append((d, stats.perDay[Self.dayKey(d)] ?? 0))
+        }
+        return out
+    }
+
+    /// Seconds listened per category, largest first.
+    func secondsByCategory() -> [(cat: SoundCat, seconds: Double)] {
+        var totals: [SoundCat: Double] = [:]
+        for (id, secs) in stats.perSound {
+            guard let s = SoundCatalog.by(id) else { continue }
+            totals[s.cat, default: 0] += secs
+        }
+        return totals.map { (cat: $0.key, seconds: $0.value) }.sorted { $0.seconds > $1.seconds }
     }
 
     func recomputeBadges(silent: Bool = false) {

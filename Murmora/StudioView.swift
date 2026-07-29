@@ -176,6 +176,8 @@ struct StudioView: View {
                 Circle().fill(Murmora.accent(cat)).frame(width: 10, height: 10)
                 Text(cat.title).font(.system(size: 17, weight: .heavy, design: .rounded)).foregroundColor(Murmora.ink)
                 Spacer()
+                Text("hold for details")
+                    .font(.system(size: 11, weight: .medium, design: .rounded)).foregroundColor(Murmora.faint)
             }
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
                 ForEach(SoundCatalog.inCat(cat)) { sound in
@@ -241,6 +243,7 @@ struct StudioView: View {
 struct SoundCard: View {
     @EnvironmentObject var store: MurmoraStore
     let sound: MurmoraSound
+    @State private var showDetail = false
 
     var body: some View {
         let active = store.isActive(sound.id)
@@ -281,6 +284,12 @@ struct SoundCard: View {
         .onTapGesture {
             Haptic.tap()
             withAnimation(.spring(response: 0.34, dampingFraction: 0.7)) { store.toggleSound(sound.id) }
+        }
+        .onLongPressGesture(minimumDuration: 0.4) {
+            Haptic.soft(); showDetail = true
+        }
+        .sheet(isPresented: $showDetail) {
+            SoundDetailView(sound: sound).environmentObject(store)
         }
         .animation(.spring(response: 0.34, dampingFraction: 0.75), value: active)
     }

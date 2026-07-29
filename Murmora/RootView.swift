@@ -12,7 +12,8 @@ struct RootView: View {
                     switch tab {
                     case 0: StudioView()
                     case 1: ScenesView()
-                    case 2: SleepView()
+                    case 2: BreatheView()
+                    case 3: SleepView()
                     default: ProfileView()
                     }
                 }
@@ -42,8 +43,9 @@ struct RootView: View {
         HStack(spacing: 0) {
             tabButton(0, "Studio", .studio)
             tabButton(1, "Scenes", .scenes)
-            tabButton(2, "Sleep", .sleep)
-            tabButton(3, "You", .profile)
+            tabButton(2, "Breathe", .leaf)
+            tabButton(3, "Sleep", .sleep)
+            tabButton(4, "You", .profile)
         }
         .padding(.top, 10)
         .padding(.bottom, 6)

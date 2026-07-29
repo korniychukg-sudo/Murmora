@@ -4,6 +4,7 @@ struct ProfileView: View {
     @EnvironmentObject var store: MurmoraStore
     @State private var showPrivacy = false
     @State private var showReset = false
+    @State private var showInsights = false
 
     private var lvl: (level: Int, into: Int, span: Int) { Murmora.level(minutes: store.stats.minutes) }
 
@@ -14,6 +15,7 @@ struct ProfileView: View {
                 VStack(alignment: .leading, spacing: 22) {
                     header
                     statRow
+                    insightsButton
                     topSounds
                     badges
                     settings
@@ -24,6 +26,7 @@ struct ProfileView: View {
             }
         }
         .sheet(isPresented: $showPrivacy) { MurmoraPrivacySheet() }
+        .sheet(isPresented: $showInsights) { InsightsView().environmentObject(store) }
         .alert(isPresented: $showReset) {
             Alert(title: Text("Reset everything?"),
                   message: Text("This clears your saved scenes, stats and badges."),
@@ -64,6 +67,29 @@ struct ProfileView: View {
     }
 
     // MARK: stats
+
+    private var insightsButton: some View {
+        Button {
+            Haptic.soft(); showInsights = true
+        } label: {
+            HStack(spacing: 12) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(Murmora.gradient(.tones)).frame(width: 40, height: 40)
+                    MurmoraIcon(glyph: .waveform, size: 18, color: .white)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Insights").font(.system(size: 16, weight: .bold, design: .rounded)).foregroundColor(Murmora.ink)
+                    Text("Streaks, your week and what you reach for")
+                        .font(.system(size: 12.5, weight: .medium, design: .rounded)).foregroundColor(Murmora.subtle)
+                }
+                Spacer()
+                MurmoraIcon(glyph: .chevron, size: 16, color: Murmora.faint)
+            }
+            .murmoraCard(padding: 14, radius: 18)
+        }
+        .buttonStyle(PressableStyle())
+    }
 
     private var statRow: some View {
         HStack(spacing: 12) {
