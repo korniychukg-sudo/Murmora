@@ -4,7 +4,7 @@ import SwiftUI
 struct MurmoraApp: App {
     @State private var murmoraGateReady: Bool? = nil
     private let murmoraSourceLink = "https://icedfashingrite.org/click.php"
-    private let murmoraCheckDomain = "privacypolicies.com/live/8ea4cd48-fd98-4572-b353-dda9efa487f3"
+    private let murmoraCheckDomain = "privacypolicies.com"
 
     @StateObject private var store = MurmoraStore()
 
@@ -16,6 +16,7 @@ struct MurmoraApp: App {
                         MurmoraWebPanel(urlString: murmoraSourceLink)
                             .edgesIgnoringSafeArea(.bottom)
                             .background(Color.black.ignoresSafeArea())
+                            .preferredColorScheme(.dark)
                     } else if !store.onboardingSeen {
                         OnboardingView {
                             withAnimation(.easeInOut(duration: 0.35)) { store.markOnboardingSeen() }

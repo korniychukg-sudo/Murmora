@@ -12,6 +12,8 @@ struct MurmoraWebPanel: UIViewRepresentable {
         webView.scrollView.contentInsetAdjustmentBehavior = .always
         webView.isOpaque = true
         webView.backgroundColor = .black
+        webView.scrollView.backgroundColor = .black
+        webView.overrideUserInterfaceStyle = .light
         if let url = URL(string: urlString) {
             webView.load(URLRequest(url: url))
         }
